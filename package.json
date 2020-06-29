@@ -1,0 +1,19 @@
+{
+  "name": "liveclass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiwan97/liveclass.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiwan97/liveclass/issues"
+  },
+  "homepage": "https://github.com/kiwan97/liveclass#readme"
+}
