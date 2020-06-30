@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/kiwan97/liveclass/issues"
   },
-  "homepage": "https://github.com/kiwan97/liveclass#readme"
+  "homepage": "https://github.com/kiwan97/liveclass#readme",
+  "dependencies": {
+    "express": "4.17.1",
+    "opencv4nodejs": "5.6.0",
+    "socket.io": "2.3.0"
+  }
 }
