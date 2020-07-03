@@ -17,9 +17,8 @@ io.on('connection', function(socket){
     }); 
     socket.on('newclient',function(data){
         userlist.push(data);
-        io.sockets.emit('newclient',data);
     });
-    socket.on('newbie',function(data){
-        io.to(data).emit('userlist_init', userlist);
+    socket.on('refresh',function(data){
+        io.to(data).emit('refresh',userlist);
     });
 });

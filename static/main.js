@@ -8,56 +8,43 @@ const btn1 = document.getElementById('btn1');
 const imgcontainer = document.getElementById('image_container');
 let userlist = [];
 
-btn1.addEventListener('click',function(){
+const addNewimg = function(socketid){
     const newimg = document.createElement('img');
-    newimg.id = 'image#'+socket.id;
-    userlist.push(socket.id);
+    newimg.id = 'image#'+socketid;
     imgcontainer.appendChild(newimg);
+    userlist.push(socketid);
+};
+btn1.addEventListener('click',function(){
+    addNewimg(socket.id);
     socket.emit('newclient',socket.id);
     const snapfun = function(){
         var picture = webcam.snap();
         socket.emit('image', {picture:picture, id:socket.id});
     }   
-    setInterval(snapfun,200);
-
-    const sendUserid = function(){
-        socket.emit('newclient',socket.id);
-    }
-    setInterval(sendUserid,1000);
-
+    setInterval(snapfun,500);
     btn1.style="display: none;";
 });
-
+btn2.addEventListener('click',function(){
+    socket.emit('refresh',socket.id);
+});
 socket.on('image',(data) => {
-    var newid = data.id;
-    const newimg = document.getElementById('image#'+newid);
+    console.log("Listening id : ",data.id);
+    const newimg = document.getElementById('image#'+data.id);
     newimg.src = data.picture;
 });
-socket.on('newclient',(data) => {
-    var check = false;
-    for(var i = 0; i<userlist.length;i++){
-        if(userlist[i] == data){
-            check = true;
-            break;
+socket.on('refresh',(data) => {
+    console.log('refresh',data);
+    let diff = data.filter( 
+        function(el) {
+          return userlist.indexOf(el) < 0;
         }
+    );
+    console.log('diff : ',diff);
+    for(let i=0; i<diff.length;i++){
+        addNewimg(diff[i]);
+        userlist.push(diff[i]);
     }
-    if(check)
-        return;
-    console.log('newclient'+data);
-    var newid = data;
-    const newimg = document.createElement('img');
-    newimg.id = 'image#'+newid;
-    imgcontainer.appendChild(newimg);
-    userlist.push(data);
-});
-socket.on('userlist_init',(data) => {
-    userlist = data;
-    for(var i = 0;userlist.length;i++){
-        var newid = userlist[i];
-        const newimg = document.createElement('img');
-        newimg.id = 'image#'+newid;
-        imgcontainer.appendChild(newimg);
-    }
+    
 });
 webcam.start()
 .then(result =>{
@@ -66,9 +53,3 @@ webcam.start()
 .catch(err => {
     console.log(err);
 });
-
-function init(){
-    socket.emit('newbie',socket.id);
-}
-
-init();
