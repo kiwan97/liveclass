@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <div id="roomsContainer">
+            <% Object.keys(rooms).forEach(room => { %>
+                <div><%= room %></div>
+                <a href="/<%= room %>">Join</a>
+              <% }) %>
+        </div>
+        <form action="/room" method="POST">
+            <input name="room" type="text" required>
+            <input name="nickName" type="text" required>
+            <input name="builder" type="text" required>
+            <button type="submit">New Room</button>
+        </form>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+        <script type="text/javascript" src="/static/rooms.js"></script>
+        
+    </body>
+</html>

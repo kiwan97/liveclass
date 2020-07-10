@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+        <link rel='stylesheet' href='/static/stylesheets/room.css' />
     </head>
     <body>
+        <div><%= roomName %></div>
+        <div><%= nickName %></div>
         <img id='image2'>
-        <div id='image_container'>
+        <div class = 'teacher_video' id = 'teacher_video'></div>
+        <div class = 'image_container' id='image_container'>
         </div>
         <textarea id="text2">FUCK</textarea>
         <video id="webcam" autoplay playsinline width="640" height="480"></video>
@@ -14,8 +17,12 @@
         HELLO??
         <button id="btn1">broadcast</button>
         <button id="btn2">refresh</button>
+        <script>
+                const roomName = "<%= roomName %>"
+                const nickName = "<%= nickName %>"
+        </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-        <script type="text/javascript" src="/static/main.js"></script>
+        <script type="text/javascript" src="/static/room.js"></script>
     </body>
 </html>

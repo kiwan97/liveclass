@@ -1,25 +1,30 @@
 var imageElm = document.getElementById('image2');
-const socket = io.connect('http://192.168.0.7:3000');
+const socket = io.connect('http://localhost:3000');
 const webcamElement = document.getElementById('webcam');
 const canvasElement = document.getElementById('canvas');
 const snapSoundElement = document.getElementById('snapSound');
 const webcam = new Webcam(webcamElement, 'user', canvasElement, null);
 const btn1 = document.getElementById('btn1');
 const imgcontainer = document.getElementById('image_container');
-let userlist = [];
+
+let timelist = {};
+let isBuilder = false;
 
 const addNewimg = function(socketid){
     const newimg = document.createElement('img');
     newimg.id = 'image#'+socketid;
     imgcontainer.appendChild(newimg);
-    userlist.push(socketid);
+};
+const delNewimg = function(socketid){
+    const delimg = document.getElementById('image#'+socketid);
+    delimg.remove();
 };
 btn1.addEventListener('click',function(){
     addNewimg(socket.id);
-    socket.emit('newclient',socket.id);
+    console.log('socket.id : ',socket.id);
     const snapfun = function(){
         var picture = webcam.snap();
-        socket.emit('image', {picture:picture, id:socket.id});
+        socket.emit('image', {picture:picture, id:socket.id, room:roomName});
     }   
     setInterval(snapfun,500);
     btn1.style="display: none;";
@@ -27,24 +32,21 @@ btn1.addEventListener('click',function(){
 btn2.addEventListener('click',function(){
     socket.emit('refresh',socket.id);
 });
+
 socket.on('image',(data) => {
-    console.log("Listening id : ",data.id);
     const newimg = document.getElementById('image#'+data.id);
-    newimg.src = data.picture;
-});
-socket.on('refresh',(data) => {
-    console.log('refresh',data);
-    let diff = data.filter( 
-        function(el) {
-          return userlist.indexOf(el) < 0;
-        }
-    );
-    console.log('diff : ',diff);
-    for(let i=0; i<diff.length;i++){
-        addNewimg(diff[i]);
-        userlist.push(diff[i]);
+    if(newimg == null){
+        addNewimg(data.id);
     }
-    
+    newimg.src = data.picture;
+    timelist[data.id] = new Date();
+});
+socket.on('isBuilder', (data) => {
+    isBuilder = true;
+    console.log("I'm builder!");
+});
+socket.on('user-connected', (data) => {
+    addNewimg(data.name);
 });
 webcam.start()
 .then(result =>{
@@ -53,3 +55,21 @@ webcam.start()
 .catch(err => {
     console.log(err);
 });
+
+const checkTimeOut = function(){
+    Object.keys(timelist).forEach( id => {
+        const diff = (new Date()) - timelist[id];
+        if(diff > 1000){
+            delNewimg(id);
+            delete timelist[id];
+        }
+    });
+};
+const init = function(){
+    console.log("my nickname : ", nickName);
+    socket.emit('room-enter', {room:roomName, name: socket.id});
+    console.log('init : ', socket.id);
+    setInterval(checkTimeOut,3000);
+};
+
+setTimeout(init, 1000);
