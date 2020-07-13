@@ -1,28 +1,64 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel='stylesheet' href='/static/stylesheets/reset.css' />
         <link rel='stylesheet' href='/static/stylesheets/room.css' />
     </head>
     <body>
-        <div><%= roomName %></div>
-        <div><%= nickName %></div>
-        <img id='image2'>
-        <div class = 'teacher_video' id = 'teacher_video'></div>
-        <div class = 'image_container' id='image_container'>
-        </div>
-        <textarea id="text2">FUCK</textarea>
-        <video id="webcam" autoplay playsinline width="640" height="480"></video>
-        <canvas id="canvas" class="d-none" style="display:none;"></canvas>
-        <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
-        HELLO??
-        <button id="btn1">broadcast</button>
-        <button id="btn2">refresh</button>
+        <header>
+            <div class="header_wrapper">
+                <div class="header_roomName"><%= roomName %></div>
+                <div class="header_nickName">
+                    <% if (user) { %>
+                        <%= user.name %>
+                        <script>
+                            const userName = "<%= user.name %>";
+                        </script>
+                    <% }else{%>
+                        <%= 'Guest' %>
+                        <script>
+                                const userName = "Guest";
+                        </script>
+                    <% } %>
+                </div>
+                <div class="header_email">
+                    <% if (user) { %>
+                        <%= user.email %>
+                        <script>
+                            const cur_email = "<%= user.email %>";
+                        </script>
+                    <% }else{%>
+                        <%= 'Guest' %>
+                        <script>
+                            const cur_email = "Guest";
+                        </script>
+                    <% } %>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class = 'teacher_container' id = 'teacher_container'></div>
+            <div class = 'image_container' id='image_container'></div>
+            <button id="btn1">broadcast</button>
+
+            
+                  
+            <div class="mycam_container">
+                <video id="webcam" autoplay playsinline width="320" height="240"></video>
+                <canvas id="canvas" class="d-none" style="display:none;"></canvas>
+                <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
+            </div>
+        </main>
         <script>
-                const roomName = "<%= roomName %>"
-                const nickName = "<%= nickName %>"
+                const roomName = "<%= roomName %>";
+                const builder = "<%= builder %>";
+
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
         <script type="text/javascript" src="/static/room.js"></script>
     </body>
 </html>
