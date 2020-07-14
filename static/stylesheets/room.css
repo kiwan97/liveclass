@@ -22,12 +22,38 @@
     color: aliceblue;
 }
 .main{
+    width: 100%;
     padding-top: 50px;
 }
+.main-left, .main-right{
+    float: left;
+    position: relative;
+}
+.main-left{
+    width: 30%;
+    background-color: red;
+}
+.main-right{
+    width: 70%;
+    background-color: blue;
+}
+
 .student_video{
-    width: 540px;
-    height: 400px;
+    width: 320px;
+    height: 240px;
+}
+.teacher_video{
+    width: 640px;
+    height: 480px;
 }
 .mycam_container{
     padding-right: 0;
+}
+
+
+.test-box{
+    width: 50%;
+    border: 15px solid green;
+
+    position: absolute;
 }

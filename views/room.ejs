@@ -15,7 +15,7 @@
                             const userName = "<%= user.name %>";
                         </script>
                     <% }else{%>
-                        <%= 'Guest' %>
+                        <%= "Guest" %>
                         <script>
                                 const userName = "Guest";
                         </script>
@@ -28,7 +28,7 @@
                             const cur_email = "<%= user.email %>";
                         </script>
                     <% }else{%>
-                        <%= 'Guest' %>
+                        <%= "Guest"%>
                         <script>
                             const cur_email = "Guest";
                         </script>
@@ -37,22 +37,26 @@
             </div>
         </header>
         <main>
-            <div class = 'teacher_container' id = 'teacher_container'></div>
-            <div class = 'image_container' id='image_container'></div>
-            <button id="btn1">broadcast</button>
-
+            <div class ="main-left">
+                <div class = 'teacher_container' id = 'teacher_container'></div>
+                <div class="test-box"></div>
+                <button id="btn1">broadcast</button>
+                <div class="mycam_container">
+                    <video id="webcam" autoplay playsinline width="320" height="240"></video>
+                    <canvas id="canvas" class="d-none" style="display:none;"></canvas>
+                    <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
+                </div>
+            </div>
+            <div class="main-right">
+                <div class="test-box"></div>
+                <div class = 'image_container' id='image_container'></div>
+            </div>
             
                   
-            <div class="mycam_container">
-                <video id="webcam" autoplay playsinline width="320" height="240"></video>
-                <canvas id="canvas" class="d-none" style="display:none;"></canvas>
-                <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
-            </div>
         </main>
         <script>
                 const roomName = "<%= roomName %>";
                 const builder = "<%= builder %>";
-
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>

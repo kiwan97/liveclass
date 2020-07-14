@@ -15,6 +15,7 @@ const CookieParser = require('cookie-parser');
 const {getJoin,postJoin,getLogin,postLogin,getLogout,postGoogleLogin} = require('./controllers/userController');
 const passport = require("passport");
 let roomlist = {};
+let GuestCnt = 0;
 let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
 shell.on('message', function (message) {
         // received a message sent from the Python script (a simple "print" statement)
@@ -22,7 +23,14 @@ shell.on('message', function (message) {
     });
 
 const localsMiddleWares= (req,res,next) => {
-    res.locals.user = req.user || null;
+    if(!req.user){
+        if(!req.session.user)
+            req.session.user = {email:"Guest#"+GuestCnt, name: "Guest#"+GuestCnt++};
+        req.user = req.session.user;
+    }
+    
+    res.locals.user = req.user
+    console.log(res.locals.user);
     next();
 };
 
@@ -34,7 +42,6 @@ app.set('view engine', 'ejs')
 
 
 app.get('/room', (req,res) => {
-    //res.sendFile(path.join(__dirname+'/views/index.html'));
     res.render('room');
 });
 app.use(
@@ -73,9 +80,9 @@ app.post('/room', (req, res) => {
     if (roomlist[req.body.room] != null) {
       return res.redirect('/rooms')
     }
-    roomlist[req.body.room] = { users: {}, builder: req.user.email };
+    roomlist[req.body.room] = { users: {}, builder: res.locals.user.email};
+
     res.redirect(req.body.room);
-    
 });
 app.post('/rooms',(req,res) => {
     res.redirect('/rooms');

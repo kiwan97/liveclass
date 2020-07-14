@@ -16,8 +16,10 @@ const addNewimg = function(email){
         newimg.classList.add("student_video");
         imgcontainer.appendChild(newimg);
     }
-    else
+    else{
+        newimg.classList.add("teacher_video")
         teacher_container.appendChild(newimg);
+    }
         
 };
 const delNewimg = function(email){
@@ -27,7 +29,6 @@ const delNewimg = function(email){
 btn1.addEventListener('click',function(){
     const snapfun = function(){
         var picture = webcam.snap();
-        console.log("sender : ",cur_email);
         socket.emit('image', {picture:picture, room:roomName, email: cur_email});
     }   
     setInterval(snapfun,500);
@@ -36,7 +37,6 @@ btn1.addEventListener('click',function(){
 
 socket.on('image',(data) => {
     const newimg = document.getElementById('image#'+data.email);
-    console.log("receiver : ", data.email);
     if(newimg == null){
         addNewimg(data.email);
     }else{
@@ -64,8 +64,6 @@ const checkTimeOut = function(){
 const init = function(){
     setInterval(checkTimeOut,3000);
     socket.emit('room-enter', {room:roomName, name: socket.id});
-    console.log("builder : ", builder);
-    console.log("user : ",cur_email);
 };
 init();
 
