@@ -1,4 +1,4 @@
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('https://liveclass2020.com');
 const webcamElement = document.getElementById('webcam');
 const canvasElement = document.getElementById('canvas');
 const snapSoundElement = document.getElementById('snapSound');

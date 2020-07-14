@@ -5,8 +5,8 @@ import base64
 from time import sleep
 import cv2
 import json
-eye_cascPath = '/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/haarcascade_eye_tree_eyeglasses.xml'  #eye detect model
-face_cascPath = '/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/haarcascade_frontalface_alt.xml'  #face detect model
+eye_cascPath = 'haarcascade_eye_tree_eyeglasses.xml'  #eye detect model
+face_cascPath = 'facedetect-py/haarcascade_frontalface_alt.xml'  #face detect model
 faceCascade = cv2.CascadeClassifier(face_cascPath)
 eyeCascade = cv2.CascadeClassifier(eye_cascPath)
 
@@ -26,7 +26,7 @@ while(True):
 	    f.close()
 	sleep(0.5)
 	print("saved")
-	img = cv2.imread('/Users/kiwankim/Downloads/Chrome/live_test/liveclass/some_image.jpg', cv2.IMREAD_COLOR);
+	img = cv2.imread('some_image.jpg', cv2.IMREAD_COLOR);
 	frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	# Detect faces in the image
 	faces = faceCascade.detectMultiScale(

@@ -8,6 +8,7 @@ const session = require("express-session");
 const app = express();
 const CookieStore = MongoStore(session);
 const server = app.listen(3000,()=>{console.log("local 3000 is listen");});
+// const server = app.listen(80,()=>{console.log("local 80 is listen");});
 const io = require('socket.io').listen(server);
 const bodyParser = require("body-parser");
 const { PythonShell } = require('python-shell');
@@ -16,7 +17,8 @@ const {getJoin,postJoin,getLogin,postLogin,getLogout,postGoogleLogin} = require(
 const passport = require("passport");
 let roomlist = {};
 let GuestCnt = 0;
-let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
+// let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
+let shell = new PythonShell('facedetect-py/cv_close_eye_detect2.py');
 shell.on('message', function (message) {
         // received a message sent from the Python script (a simple "print" statement)
         console.log(message);

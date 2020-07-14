@@ -29,14 +29,14 @@
     float: left;
     position: relative;
 }
-.main-left{
+/* .main-left{
     width: 30%;
     background-color: red;
 }
 .main-right{
     width: 70%;
     background-color: blue;
-}
+} */
 
 .student_video{
     width: 320px;
@@ -51,9 +51,9 @@
 }
 
 
-.test-box{
+/* .test-box{
     width: 50%;
     border: 15px solid green;
 
     position: absolute;
-}
+} */
