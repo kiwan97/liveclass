@@ -4,56 +4,103 @@
 .body{
     width: 100%;
     height: 100%;
+    background-color: purple;
 }
 .header{
 }
 .header_wrapper{
-    background-color: red;
-    width: 100%;
+    background-color: #55efc4;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 50px;
 }
-.header_roomName,.header_nickName{
-    height: 60px;
+.loggo{
+    color: #2d3436;
+}
+.header_loggo,.header_roomName,.header_nickName,.header_email{
+    height: 10%;
     font-size: 50px;
-    padding: 10px;
+    padding: 1%;
+    margin: 1%;
     background-color: brown;
-    color: aliceblue;
+    color: #2d3436;
+    align-items: center;
+
 }
 .main{
+}
+#main-container{
     width: 100%;
-    padding-top: 50px;
+    height: 83%;
+    position: absolute;
+    background-color: orange;
 }
 .main-left, .main-right{
     float: left;
-    position: relative;
 }
-/* .main-left{
+.main-left{
     width: 30%;
+    height: 100%;
     background-color: red;
+    position: relative;
 }
 .main-right{
     width: 70%;
+    height: 100%;
     background-color: blue;
-} */
+}
 
+.student_container{
+    background-color: red;
+    width: 33%;
+    float: left;
+}
 .student_video{
-    width: 320px;
-    height: 240px;
+    width: 90%;
+    margin: 5%;
+    /* width: 320px; */
+    /* height: 240px; */
 }
 .teacher_video{
-    width: 640px;
-    height: 480px;
-}
-.mycam_container{
-    padding-right: 0;
+    width: 100%;
+    /* width: 640px;
+    height: 480px; */
 }
 
 
-/* .test-box{
-    width: 50%;
-    border: 15px solid green;
-
+#chat_container{
+    width: 100%;
     position: absolute;
-} */
+    bottom: 0;
+    background-color: white;
+}
+#chat_board{
+    background-color: orange;
+    width: 100%;
+    height: 20%;
+}
+
+
+/* floating window */
+#console{
+    width: 320px;
+    height: 250px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #81ecec;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+span.windowTitle {
+  /*font-family: "Segoe UI";*/
+  font-size: 50;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  font-family: "Roboto";
+  font-weight: bold
+}
+#refreshbtn{
+  position: absolute;
+  right: 200px;
+}

@@ -7,18 +7,19 @@
     <body>
         <header>
             <div class="header_wrapper">
+                <div class="header_loggo"><a class="loggo" href="/rooms" style="text-decoration:none">Live Class</a></div>
                 <div class="header_roomName"><%= roomName %></div>
                 <div class="header_nickName">
                     <% if (user) { %>
                         <%= user.name %>
                         <script>
                             const userName = "<%= user.name %>";
-                        </script>
+                            </script>
                     <% }else{%>
                         <%= "Guest" %>
                         <script>
-                                const userName = "Guest";
-                        </script>
+                            const userName = "Guest";
+                            </script>
                     <% } %>
                 </div>
                 <div class="header_email">
@@ -26,34 +27,44 @@
                         <%= user.email %>
                         <script>
                             const cur_email = "<%= user.email %>";
-                        </script>
+                            </script>
                     <% }else{%>
                         <%= "Guest"%>
                         <script>
                             const cur_email = "Guest";
-                        </script>
+                            </script>
                     <% } %>
                 </div>
+                <button id="btn1">broadcast</button>
             </div>
         </header>
         <main>
-            <div class ="main-left">
-                <div class = 'teacher_container' id = 'teacher_container'></div>
-                <div class="test-box"></div>
-                <button id="btn1">broadcast</button>
-                <div class="mycam_container">
-                    <video id="webcam" autoplay playsinline width="320" height="240"></video>
-                    <canvas id="canvas" class="d-none" style="display:none;"></canvas>
-                    <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
+            <div id="main-container">
+                <div class ="main-left">
+                    <div class = 'teacher_container' id = 'teacher_container'></div>
+                    <div id="chat_container">
+                        <div id="chat_board"></div>
+                        <form id="chatForm">
+                            <input name="chat" type="text" >
+                            <button type="submit">send</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="main-right">
+                    <span>test</span>
+                    <div class = 'image_container' id='image_container'></div>
                 </div>
             </div>
-            <div class="main-right">
-                <div class="test-box"></div>
-                <div class = 'image_container' id='image_container'></div>
-            </div>
-            
-                  
         </main>
+        <div id= "console" class="window card z-depth-3" >
+            <div class="mycam_container">
+                <video id="webcam" autoplay playsinline width="320" height="240"></video>
+                <canvas id="canvas" class="d-none" style="display:none;"></canvas>
+                <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
+            </div>
+            <span class="windowTitle">my cam</span>
+            <a id="dragbtn" class="btn tooltipped red" onclick=drag()>Drag</a>
+        </div>
         <script>
                 const roomName = "<%= roomName %>";
                 const builder = "<%= builder %>";

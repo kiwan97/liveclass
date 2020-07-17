@@ -5,7 +5,7 @@ import base64
 from time import sleep
 import cv2
 import json
-eye_cascPath = 'haarcascade_eye_tree_eyeglasses.xml'  #eye detect model
+eye_cascPath = 'facedetect-py/haarcascade_eye_tree_eyeglasses.xml'  #eye detect model
 face_cascPath = 'facedetect-py/haarcascade_frontalface_alt.xml'  #face detect model
 faceCascade = cv2.CascadeClassifier(face_cascPath)
 eyeCascade = cv2.CascadeClassifier(eye_cascPath)
@@ -19,6 +19,9 @@ while(True):
 		continue
 	_string = json.loads(lines)
 	data = _string["arg"]
+	room = _string["room"]
+	email = _string["email"]
+
 	imgdata = base64.decodebytes(bytes(data[22:],'utf-8'))
 	filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames
 	with open(filename, 'wb') as f:
@@ -51,11 +54,11 @@ while(True):
 	        # flags = cv2.CV_HAAR_SCALE_IMAGE
 	    )
 	    if len(eyes) == 0:
-	        print('no eyes!!!')
+	        print('no eyes!!!'+'@' + room + '@' + email)
 	    else:
-	        print('eyes!!!')    
+	        print('eyes!!!'+'@' + room + '@' + email)    
 	    # frame_tmp = cv2.resize(frame_tmp, (400, 400), interpolation=cv2.INTER_LINEAR)
 	    # cv2.imshow('Face Recognition', frame_tmp)
 	else:
-		print('no Face!!!')
+		print('no Face!!!'+'@' + room + '@' + email)
 	sys.stdout.flush()

@@ -22,7 +22,10 @@ let shell = new PythonShell('facedetect-py/cv_close_eye_detect2.py');
 shell.on('message', function (message) {
         // received a message sent from the Python script (a simple "print" statement)
         console.log(message);
-    });
+        var res = message.split('@');
+        io.to(res[1]).emit('face',{face:res[0], email:res[2]});
+        
+});
 
 const localsMiddleWares= (req,res,next) => {
     if(!req.user){
@@ -42,7 +45,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs')
 
-
+app.get('/',(req,res) => {
+    res.render('rooms', {rooms: roomlist});
+});
 app.get('/room', (req,res) => {
     res.render('room');
 });
@@ -112,7 +117,7 @@ io.on('connection', function(socket){
         // };
         // let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
         // let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/test2.py');
-        shell.send(JSON.stringify({arg: data.picture}));
+        shell.send(JSON.stringify({arg: data.picture, room: data.room, email: data.email}));
         // PythonShell.run('cv_close_eye_detect2.py', options,data.picture, (err, results) => {
         //     if (err) throw err;
         //     console.log(`results: ${results}`);
@@ -131,5 +136,7 @@ io.on('connection', function(socket){
     socket.on('room-enter', (data) => {
         socket.join(data.room);
     });
-    
+    socket.on('chat',(data) => {
+        io.to(data.room).emit('chat',data);
+    });
 });
