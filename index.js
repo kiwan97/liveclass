@@ -16,6 +16,7 @@ const CookieParser = require('cookie-parser');
 const {getJoin,postJoin,getLogin,postLogin,getLogout,postGoogleLogin} = require('./controllers/userController');
 const passport = require("passport");
 let roomlist = {};
+let classlist = {};
 let GuestCnt = 0;
 // let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
 let shell = new PythonShell('facedetect-py/cv_close_eye_detect2.py');
@@ -82,7 +83,14 @@ app.get('/auth/google/callback',
   postGoogleLogin
 );
 
-
+app.post('/class',(req,res) => {
+    if(classlist[req.body.class] != null){
+        return res.redirect('/rooms');
+    }
+    classlist[req.body.class] = {users: {}, builder: res.locals.user.email, dailysched: []};
+    // res.redirect(req.body.class);
+    res.redirect("/rooms");
+});
 app.post('/room', (req, res) => {
     if (roomlist[req.body.room] != null) {
       return res.redirect('/rooms')
@@ -94,14 +102,32 @@ app.post('/room', (req, res) => {
 app.post('/rooms',(req,res) => {
     res.redirect('/rooms');
 });
+app.post('/:room/class', (req,res)=>{
+    const {
+        params: {room},
+        body: {daily,date}
+    } = req;
+    classlist[room].dailysched.push({date: date, daily: daily})
+    console.log(classlist[room].dailysched);
+    console.log('post daily room :', room);
+    console.log('post daily daily : ' , daily);
+    console.log(room + '/class');
+    res.render('class',{ className: room, builder: classlist[room].builder})
+})
 app.get('/rooms',(req,res)=>{
-    res.render('rooms', {rooms: roomlist});
+    res.render('rooms', {rooms: roomlist, classes: classlist});
 });
 app.get('/:room', (req, res) => {
     if (roomlist[req.params.room] == null){
         return res.redirect('/');
     }
     res.render('room',{ roomName: req.params.room, builder: roomlist[req.params.room].builder});
+});
+app.get('/:room/class', (req,res) => {
+    if (classlist[req.params.room] == null){
+        return res.redirect('/');
+    }
+    res.render('class',{ className: req.params.room, builder: classlist[req.params.room].builder});
 });
 
 io.on('connection', function(socket){

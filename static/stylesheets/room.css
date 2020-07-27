@@ -24,13 +24,12 @@
     background-color: brown;
     color: #2d3436;
     align-items: center;
-
 }
 .main{
 }
 #main-container{
     width: 100%;
-    height: 83%;
+    height:86%;
     position: absolute;
     background-color: orange;
 }
@@ -40,23 +39,27 @@
 .main-left{
     width: 30%;
     height: 100%;
-    background-color: red;
+    background-color: #a29bfe;
     position: relative;
 }
 .main-right{
     width: 70%;
     height: 100%;
-    background-color: blue;
+    background-color: #74b9ff;
 }
 
 .student_container{
-    background-color: red;
+    background-color: #ff7675;
     width: 33%;
     float: left;
+    border-radius: 8px;
+    margin: 5px;
+    padding: 5px;
 }
 .student_video{
     width: 90%;
     margin: 5%;
+    border-radius: 5px;
     /* width: 320px; */
     /* height: 240px; */
 }
@@ -69,16 +72,46 @@
 
 #chat_container{
     width: 100%;
+    height: 45%;
     position: absolute;
     bottom: 0;
     background-color: white;
 }
 #chat_board{
-    background-color: orange;
+    background-color: #dfe6e9;
     width: 100%;
-    height: 20%;
+    height: 90%;
 }
-
+#chatForm{
+    width: 100%;
+    height: 10%;
+    background-color: aqua;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+}
+#chatinput{
+    width: 90%;
+    height: 80%;
+}
+#sendbtn{
+    width: 15%;
+    height: 100%;
+    background-color: #b2bec3;
+    border: none;
+}
+#sendbtn:focus,#chatinput:focus{
+    outline: none;
+}
+#sendbtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+  }
+.chat-span{
+    margin-top: 5px;
+    margin-left: 5px;
+}
 
 /* floating window */
 #console{

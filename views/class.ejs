@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel='stylesheet' href='/static/stylesheets/reset.css' />
+        <link rel='stylesheet' href='/static/stylesheets/class.css' />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    </head>
+    <body>
+        <header>
+            <div class="header_wrapper">
+                <div class="header_loggo"><a class="loggo" href="/rooms" style="text-decoration:none">Live Class</a></div>
+                <div class="header_roomName"><%= className %></div>
+                <div class="header_nickName">
+                    <% if (user) { %>
+                        <%= user.name %>
+                        <script>
+                            const userName = "<%= user.name %>";
+                            </script>
+                    <% }else{%>
+                        <%= "Guest" %>
+                        <script>
+                            const userName = "Guest";
+                            </script>
+                    <% } %>
+                </div>
+                <div class="header_email">
+                    <% if (user) { %>
+                        <%= user.email %>
+                        <script>
+                            const cur_email = "<%= user.email %>";
+                            </script>
+                    <% }else{%>
+                        <%= "Guest"%>
+                        <script>
+                            const cur_email = "Guest";
+                            </script>
+                    <% } %>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div id="main-container">
+                <div class ="main-left">
+                        <div class="container">
+                                <div class="my-calendar clearfix">
+                                  <div class="clicked-date">
+                                    <div class="cal-day"></div>
+                                    <div class="cal-date"></div>
+                                  </div>
+                                  <div class="calendar-box">
+                                    <div class="ctr-box clearfix">
+                                      <button type="button" title="prev" class="btn-cal prev">
+                                      </button>
+                                      <span class="cal-month"></span>
+                                      <span class="cal-year"></span>
+                                      <button type="button" title="next" class="btn-cal next">
+                                      </button>
+                                    </div>
+                                    <table class="cal-table">
+                                      <thead>
+                                        <tr>
+                                          <th>S</th>
+                                          <th>M</th>
+                                          <th>T</th>
+                                          <th>W</th>
+                                          <th>T</th>
+                                          <th>F</th>
+                                          <th>S</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="cal-body"></tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <!-- // .my-calendar -->
+                              </div>
+                        <form method = "POST" id="daily-schedule-form">
+                            <input id="daily-input" name="daily" type="text" >
+                            <input id="dateContainer" name="date" type="text">
+                            <button id="sendbtn" type="submit"><i class="fas fa-level-up-alt"></i></button>
+                        </form>
+                        <div id="dailySchedule" class="daily-schedule"></div>
+                </div>
+                <div class="main-right">
+                    <div class = 'bulletin-board'>
+                        <div class="bulletin-element">
+                            <div>1</div>
+                            <div class="bulletin-element-title">title</div>
+                            <div class="bulletin-element-writer">kiwan</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script>
+                const className = "<%= className %>";
+                const builder = "<%= builder %>";
+        </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+        <script type="text/javascript" src="/static/class.js"></script>
+    </body>
+</html>

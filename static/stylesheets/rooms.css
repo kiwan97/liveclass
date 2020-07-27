@@ -1,0 +1,102 @@
+.header_wrapper{
+    background-color: #55efc4;
+    display: flex;
+    justify-content: space-between;
+}
+.loggo{
+    color: #2d3436;
+}
+.header_loggo,.header_roomName,.header_nickName,.header_email{
+    height: 10%;
+    font-size: 50px;
+    padding: 1%;
+    margin: 1%;
+    background-color: brown;
+    color: #2d3436;
+    align-items: center;
+}
+.main-container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+#roomsContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+    overflow: auto;
+    width: 50%;
+    height: 80%;
+    background-color: red;
+    position: relative;
+}
+#room-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #74b9ff;
+    width: 100%;
+
+
+    border-radius: 10px;
+    box-shadow:inset 0px -3px 7px 0px #29bbff;
+	background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+	background-color:#2dabf9;
+	border-radius:3px;
+	border:1px solid #0b0e07;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	/* padding:9px 23px; */
+	text-decoration:none;
+	text-shadow:0px 1px 0px #263666;
+}
+#room-block a{
+    color: white;
+    text-decoration: none;
+}
+
+#classContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+    overflow: auto;
+    width: 50%;
+    height: 80%;
+    background-color: orange;
+    position: relative;
+}
+
+.form-container{
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+/* button */
+.myButton {
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 32px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+       

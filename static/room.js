@@ -28,6 +28,7 @@ const addNewimg = function(email){
     newname.id = 'span#' + email;
     
     if(email != builder){
+        newname.innerText = "Student : " + newname.innerText;
         const newcontainer = document.createElement('div');
         newcontainer.classList.add('student_container');
         newcontainer.id = 'student#'+email;
@@ -38,6 +39,7 @@ const addNewimg = function(email){
         imgcontainer.appendChild(newcontainer);
     }
     else{
+        newname.innerText = "Teacher : " + newname.innerText;
         newimg.classList.add("teacher_video")
         teacher_container.appendChild(newimg);
         teacher_container.appendChild(newname);
@@ -75,18 +77,20 @@ socket.on('face', (data)=>{
     const stucontainer = document.getElementById('student#'+data.email);
     if(stucontainer !=null){
         if(data.face == "no Face!!!"){
-            stucontainer.style.backgroundColor = "red";
+            stucontainer.style.backgroundColor = "#ff7675";
         }else if(data.face == "no eyes!!!"){
-            stucontainer.style.backgroundColor = "yellow";
+            stucontainer.style.backgroundColor = "#ffeaa7";
         }else if(data.face == "eyes!!!"){
-            stucontainer.style.backgroundColor = "green";
+            stucontainer.style.backgroundColor = "#55efc4";
         }
     }
 });
 socket.on('chat', (data)=>{
-    const tmp = document.createElement('span');
+    const tmp = document.createElement('div');
+    tmp.classList.add("chat-span")
     tmp.innerText = data.sender + " : " + data.msg + '\n';
     chat_board.appendChild(tmp);
+    chat_board.scrollTop = chat_board.scrollHeight;
 });
 webcam.start()
 .then(result =>{
@@ -109,6 +113,7 @@ const init = function(){
     setInterval(checkTimeOut,3000);
     socket.emit('room-enter', {room:roomName, name: socket.id});
 };
+
 init();
 
 //floating window
