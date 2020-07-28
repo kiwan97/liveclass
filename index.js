@@ -105,14 +105,11 @@ app.post('/rooms',(req,res) => {
 app.post('/:room/class', (req,res)=>{
     const {
         params: {room},
-        body: {daily,date}
+        body: {daily_year,daily_month,daily_day,daily_info}
     } = req;
-    classlist[room].dailysched.push({date: date, daily: daily})
+    classlist[room].dailysched.push({"year":daily_year, "month": daily_month, "day": daily_day, "info": daily_info});
     console.log(classlist[room].dailysched);
-    console.log('post daily room :', room);
-    console.log('post daily daily : ' , daily);
-    console.log(room + '/class');
-    res.render('class',{ className: room, builder: classlist[room].builder})
+    res.render('class',{ className: room, builder: classlist[room].builder, dailysched: JSON.stringify(classlist[room].dailysched)})
 })
 app.get('/rooms',(req,res)=>{
     res.render('rooms', {rooms: roomlist, classes: classlist});
@@ -127,7 +124,7 @@ app.get('/:room/class', (req,res) => {
     if (classlist[req.params.room] == null){
         return res.redirect('/');
     }
-    res.render('class',{ className: req.params.room, builder: classlist[req.params.room].builder});
+    res.render('class',{ className: req.params.room, builder: classlist[req.params.room].builder, dailysched: JSON.stringify(classlist[req.params.room].dailysched)});
 });
 
 io.on('connection', function(socket){

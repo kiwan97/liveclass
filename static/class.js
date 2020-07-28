@@ -1,4 +1,7 @@
-const dateContainer = document.getElementById('dateContainer');
+const daily_day = document.getElementById('daily-day');
+const daily_month = document.getElementById('daily-month');
+const daily_year = document.getElementById('daily-year');
+
 const init = {
     monList: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     dayList: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -88,6 +91,11 @@ const init = {
       trtd += '</tr>';
     }
     $calBody.innerHTML = trtd;
+
+    //myown
+    daily_year.value = yy;
+    daily_month.value = mm;
+    daily_day.value = markToday;
   }
   
   /**
@@ -110,7 +118,10 @@ const init = {
     init.event.push(eventData);
     $todoList.appendChild(createLi(id, val, date));
   }
-  
+  function reloadTodo(yy, mm, dd){
+    console.log("plain : ",todolist);
+    console.log("parsed : ",JSON.parse(todolist));
+  }
   loadYYMM(init.today);
   loadDate(init.today.getDate(), init.today.getDay());
   
@@ -127,9 +138,8 @@ const init = {
       e.target.classList.add('day-active');
       init.activeDTag = e.target;
       init.activeDate.setDate(day);
-      // reloadTodo();
-      dateContainer.value = day;
-      console.log(day);
+      daily_day.value = day;
+      reloadTodo(daily_year,daily_month,daily_day);
     }
   });
 

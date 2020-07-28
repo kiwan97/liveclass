@@ -75,8 +75,10 @@
                                 <!-- // .my-calendar -->
                               </div>
                         <form method = "POST" id="daily-schedule-form">
-                            <input id="daily-input" name="daily" type="text" >
-                            <input id="dateContainer" name="date" type="text">
+                            <input id="daily-input" name="daily_info" type="text" >
+                            <input id="daily-day" name="daily_day" type="text">
+                            <input id="daily-month" name="daily_month" type="text">
+                            <input id="daily-year" name="daily_year" type="text">
                             <button id="sendbtn" type="submit"><i class="fas fa-level-up-alt"></i></button>
                         </form>
                         <div id="dailySchedule" class="daily-schedule"></div>
@@ -95,6 +97,7 @@
         <script>
                 const className = "<%= className %>";
                 const builder = "<%= builder %>";
+                const todolist = "<%= dailysched %>";
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
