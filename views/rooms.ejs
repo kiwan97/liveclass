@@ -9,20 +9,20 @@
             <div class="header_wrapper">
                 <div class="header_loggo"><a class="loggo" href="/rooms" style="text-decoration:none">Live Class</a></div>
                 <div class="header_nickName">
-                    <% if (user) { %>
+                    <% if (typeof user == 'object' && user){ %>
                         <%= user.name %>
                         <script>
                             const userName = "<%= user.name %>";
-                            </script>
+                        </script>
                     <% }else{%>
                         <%= "Guest" %>
                         <script>
                             const userName = "Guest";
-                            </script>
+                        </script>
                     <% } %>
                 </div>
                 <div class="header_email">
-                    <% if (user) { %>
+                    <% if (typeof user == 'object' && user) { %>
                         <%= user.email %>
                         <script>
                             const cur_email = "<%= user.email %>";
@@ -57,7 +57,7 @@
                     <div id="room-block">
                         <div><%= className %></div>
                         <div>Builder : <%= classes[className].builder %></div>
-                        <a href="/<%= className %>/class" class="myButton">Join</a>
+                        <a href="/class/<%= className %>" class="myButton">Join</a>
                     </div>
                 <% }) %>
             </div>

@@ -1,6 +1,30 @@
+
 const daily_day = document.getElementById('daily-day');
 const daily_month = document.getElementById('daily-month');
 const daily_year = document.getElementById('daily-year');
+const sched_container = document.getElementById('dailySchedule');
+const bulletin_board = document.getElementById('bulletin-board');
+var variableJSON = JSON.parse($('#variableJSON').text());
+$('#variableJSON').remove();
+console.log("I'm tired");
+console.log(variableJSON);
+variableJSON = JSON.parse(variableJSON);
+for(let i=0;i<variableJSON.length;i++){
+  const bulletin_elm = document.createElement('div');
+  const Num = document.createElement('div');
+  const title = document.createElement('div');
+  const writer = document.createElement('div');
+
+  Num.innerText = i;
+  title.innerText = variableJSON.title;
+  writer.innerText = variableJSON.writer;
+
+  bulletin_elm.appendChild(Num);
+  bulletin_elm.appendChild(title);
+  bulletin_elm.appendChild(writer);
+
+  bulletin_board.appendChild(bulletin_elm);
+}
 
 const init = {
     monList: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -119,8 +143,14 @@ const init = {
     $todoList.appendChild(createLi(id, val, date));
   }
   function reloadTodo(yy, mm, dd){
-    console.log("plain : ",todolist);
-    console.log("parsed : ",JSON.parse(todolist));
+    sched_container.innerHTML = '';
+    const result = variableJSON.filter(schedule => schedule.year == yy && schedule.month == mm && schedule.day == dd);
+    for(let i=0;i<result.length;i++){
+      console.log(result[i]);
+      const newSpan = document.createElement('span');
+      newSpan.innerText = JSON.stringify(result[i]);
+      sched_container.appendChild(newSpan);
+    }
   }
   loadYYMM(init.today);
   loadDate(init.today.getDate(), init.today.getDay());
@@ -139,10 +169,40 @@ const init = {
       init.activeDTag = e.target;
       init.activeDate.setDate(day);
       daily_day.value = day;
-      reloadTodo(daily_year,daily_month,daily_day);
+      reloadTodo(daily_year.value,daily_month.value,daily_day.value);
     }
   });
 
   //myown
+
+
+
+const schedForm = document.getElementById('daily-schedule-form');
+const daily_input = document.getElementById('daily-input');
+const formSubmitFunc = async (event) => {
+  event.preventDefault();
+  const day_ = daily_day.value;
+  const month_ = daily_month.value;
+  const info = daily_input.value;
+  const year_ = daily_year.value;
+  const class_ = window.location.href.split("class/")[1];
+  daily_input.value = '';
+  try{
+    fetch('/api/addClassSched', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:  JSON.stringify({class:class_,year:year_, month:month_,day:day_,info:info}),
+    }).then(function(response) {
+      console.log(response);
+    });
+  }catch(error){
+        console.log(error);
+  }
+}
+
+schedForm.addEventListener('submit',formSubmitFunc);
+
 
   

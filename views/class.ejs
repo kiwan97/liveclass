@@ -84,7 +84,7 @@
                         <div id="dailySchedule" class="daily-schedule"></div>
                 </div>
                 <div class="main-right">
-                    <div class = 'bulletin-board'>
+                    <div id='bulletin-board' class = 'bulletin-board'>
                         <div class="bulletin-element">
                             <div>1</div>
                             <div class="bulletin-element-title">title</div>
@@ -94,10 +94,12 @@
                 </div>
             </div>
         </main>
+        <span id='variableJSON' hidden>
+            <%- JSON.stringify(dailysched); %>
+        </span>
         <script>
                 const className = "<%= className %>";
                 const builder = "<%= builder %>";
-                const todolist = "<%= dailysched %>";
         </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>

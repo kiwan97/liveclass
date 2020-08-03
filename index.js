@@ -35,7 +35,7 @@ const localsMiddleWares= (req,res,next) => {
         req.user = req.session.user;
     }
     
-    res.locals.user = req.user
+    res.locals.user = req.user || null
     console.log(res.locals.user);
     next();
 };
@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs')
 
 app.get('/',(req,res) => {
-    res.render('rooms', {rooms: roomlist});
+    res.render('rooms', {rooms: roomlist,classes: classlist});
 });
 app.get('/room', (req,res) => {
     res.render('room');
@@ -91,6 +91,7 @@ app.post('/class',(req,res) => {
     // res.redirect(req.body.class);
     res.redirect("/rooms");
 });
+
 app.post('/room', (req, res) => {
     if (roomlist[req.body.room] != null) {
       return res.redirect('/rooms')
@@ -102,15 +103,15 @@ app.post('/room', (req, res) => {
 app.post('/rooms',(req,res) => {
     res.redirect('/rooms');
 });
-app.post('/:room/class', (req,res)=>{
+
+app.post('/api/addClassSched',(req,res)=>{
     const {
-        params: {room},
-        body: {daily_year,daily_month,daily_day,daily_info}
+        body: {year,month,day,info,class:class2}
     } = req;
-    classlist[room].dailysched.push({"year":daily_year, "month": daily_month, "day": daily_day, "info": daily_info});
-    console.log(classlist[room].dailysched);
-    res.render('class',{ className: room, builder: classlist[room].builder, dailysched: JSON.stringify(classlist[room].dailysched)})
-})
+    classlist[class2].dailysched.push({"year":year, "month": month, "day": day, "info": info});
+    res.end();
+    // res.render('class',{ className: room, builder: classlist[room].builder, dailysched: JSON.stringify(classlist[room].dailysched)})
+});
 app.get('/rooms',(req,res)=>{
     res.render('rooms', {rooms: roomlist, classes: classlist});
 });
@@ -120,11 +121,18 @@ app.get('/:room', (req, res) => {
     }
     res.render('room',{ roomName: req.params.room, builder: roomlist[req.params.room].builder});
 });
-app.get('/:room/class', (req,res) => {
-    if (classlist[req.params.room] == null){
+app.get('/class/:className', (req,res) => {
+    if (classlist[req.params.className] == null){
         return res.redirect('/');
     }
-    res.render('class',{ className: req.params.room, builder: classlist[req.params.room].builder, dailysched: JSON.stringify(classlist[req.params.room].dailysched)});
+    res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched)});
+});
+app.get('/class/:classId/:page',(req,res)=>{
+    const {
+        params: {room, page}
+    } = req;
+
+    res.redirect('/rooms');
 });
 
 io.on('connection', function(socket){
