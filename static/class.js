@@ -2,22 +2,33 @@
 const daily_day = document.getElementById('daily-day');
 const daily_month = document.getElementById('daily-month');
 const daily_year = document.getElementById('daily-year');
+const daily_title = document.getElementById('daily-title');
 const sched_container = document.getElementById('dailySchedule');
 const bulletin_board = document.getElementById('bulletin-board');
 var variableJSON = JSON.parse($('#variableJSON').text());
+let sched_cnt = 0;
 $('#variableJSON').remove();
 console.log("I'm tired");
 console.log(variableJSON);
+console.log('cur_email : ',cur_email);
 variableJSON = JSON.parse(variableJSON);
 for(let i=0;i<variableJSON.length;i++){
   const bulletin_elm = document.createElement('div');
   const Num = document.createElement('div');
   const title = document.createElement('div');
   const writer = document.createElement('div');
+  const bulletin_a = document.createElement('a');
 
-  Num.innerText = i;
-  title.innerText = variableJSON.title;
-  writer.innerText = variableJSON.writer;
+
+  Num.innerText = sched_cnt++;
+  title.innerText = variableJSON[i].title;
+  writer.innerText = variableJSON[i].writer;
+  bulletin_a.href = window.location.href + "/" + variableJSON[i].schedId;
+
+  bulletin_elm.classList.add('bulletin-element');
+  Num.classList.add('bulletin-num');
+  title.classList.add('bulletin-element-title');
+  writer.classList.add('bulletin-element-writer');
 
   bulletin_elm.appendChild(Num);
   bulletin_elm.appendChild(title);
@@ -185,6 +196,8 @@ const formSubmitFunc = async (event) => {
   const month_ = daily_month.value;
   const info = daily_input.value;
   const year_ = daily_year.value;
+  const title_ = daily_title.value;
+  const writer_ = cur_email;
   const class_ = window.location.href.split("class/")[1];
   daily_input.value = '';
   try{
@@ -193,7 +206,7 @@ const formSubmitFunc = async (event) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body:  JSON.stringify({class:class_,year:year_, month:month_,day:day_,info:info}),
+      body:  JSON.stringify({class:class_,writer:writer_,title:title_,year:year_, month:month_,day:day_,info:info}),
     }).then(function(response) {
       console.log(response);
     });

@@ -106,9 +106,12 @@ app.post('/rooms',(req,res) => {
 
 app.post('/api/addClassSched',(req,res)=>{
     const {
-        body: {year,month,day,info,class:class2}
+        body: {title,writer,year,month,day,info,class:class2}
     } = req;
-    classlist[class2].dailysched.push({"year":year, "month": month, "day": day, "info": info});
+    console.log(req.body);
+    const newId = '_' + Math.random().toString(36).substr(2, 9);
+    console.log('newId : ',newId);
+    classlist[class2].dailysched.push({"schedId":newId,"title":title,"writer":writer,"year":year, "month": month, "day": day, "info": info});
     res.end();
     // res.render('class',{ className: room, builder: classlist[room].builder, dailysched: JSON.stringify(classlist[room].dailysched)})
 });
@@ -127,12 +130,16 @@ app.get('/class/:className', (req,res) => {
     }
     res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched)});
 });
-app.get('/class/:classId/:page',(req,res)=>{
+app.get('/class/:className/:schedId',(req,res)=>{
     const {
-        params: {room, page}
+        params: {className, schedId}
     } = req;
 
-    res.redirect('/rooms');
+    console.log("hoho",schedId);
+    // const tmp_sched = classlist[req.params.className].dailysched.filter(sched => sched.schedId == schedId)
+    // console.log('tmp_sched : ',tmp_sched);
+    // res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, sched: JSON.stringify(classlist[req.params.className].dailysched)});
+    // res.redirect('/rooms');
 });
 
 io.on('connection', function(socket){
