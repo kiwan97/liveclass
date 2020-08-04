@@ -40,25 +40,19 @@
         </header>
         <main>
             <div id="main-container">
-                <form id="daily-schedule-form" action="/api/addClassSched" method="POST">
-                    <span>info</span>
-                    <input id="daily-input" name="daily_info" type="text" >
-                    <span>day</span>
-                    <input id="daily-day" name="daily_day" type="text">
-                    <span>month</span>
-                    <input id="daily-month" name="daily_month" type="text">
-                    <span>year</span>
-                    <input id="daily-year" name="daily_year" type="text">
-                    <span>title</span>
-                    <input id="daily-title" name="daily_title" type="text">
-                    <span>startTime</span>
-                    <input id="daily-startTime" name="daily_startTime" type="number">
-                    <span>endTime</span>
-                    <input id="daily-endTime" name="daily_endTime" type="number">
-                    <button id="sendbtn" type="submit"><i class="fas fa-level-up-alt"></i></button>
-                </form>
+                <div id="sched-title"></div>
+                <div id="sched-info"></div>
+                <div id="sched-writer"></div>
+                <div id="month"></div>
+                <div id="day"></div>
+                <div id="year"></div>
+                <div id="startTime"></div>
+                <div id="endTime"></div>
             </div>
         </main>
+        <span id='variableJSON' hidden>
+            <%- JSON.stringify(sched); %>
+        </span>
         <script>
                 const className = "<%= className %>";
                 const builder = "<%= builder %>";
@@ -68,5 +62,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+        <script src="/static/dailySched.js"></script>
     </body>
 </html>

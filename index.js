@@ -130,12 +130,20 @@ app.get('/class/:className', (req,res) => {
     }
     res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched)});
 });
+app.get('/class/:className/addSchedForm',(req,res)=>{
+    if(classlist[req.params.className]== null){
+        return res.redirect('/');
+    }
+    res.render('addSchedForm', {className: req.params.className, builder: classlist[req.params.className].builder});
+});
 app.get('/class/:className/:schedId',(req,res)=>{
     const {
         params: {className, schedId}
     } = req;
 
-    console.log("hoho",schedId);
+    console.log(classlist[req.params.className].dailysched.filter(sched => sched.schedId == schedId));
+
+    res.render('dailySched',{className: req.params.className, builder: classlist[req.params.className].builder, sched: JSON.stringify(classlist[req.params.className].dailysched)})
     // const tmp_sched = classlist[req.params.className].dailysched.filter(sched => sched.schedId == schedId)
     // console.log('tmp_sched : ',tmp_sched);
     // res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, sched: JSON.stringify(classlist[req.params.className].dailysched)});
