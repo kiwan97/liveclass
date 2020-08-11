@@ -5,11 +5,15 @@ const daily_year = document.getElementById('daily-year');
 const daily_title = document.getElementById('daily-title');
 const sched_container = document.getElementById('dailySchedule');
 const bulletin_board = document.getElementById('bulletin-board');
+const enteredUser_board = document.getElementById('enteredUser-board');
 var variableJSON = JSON.parse($('#variableJSON').text());
+var variableJSON2 = JSON.parse($('#variableJSON2').text());
 let sched_cnt = 0;
 $('#variableJSON').remove();
+$('#variableJSON2').remove();
 console.log("I'm tired");
 console.log(variableJSON);
+console.log("variable2 : ",variableJSON2);
 console.log('cur_email : ',cur_email);
 variableJSON = JSON.parse(variableJSON);
 for(let i=0;i<variableJSON.length;i++){
@@ -19,6 +23,9 @@ for(let i=0;i<variableJSON.length;i++){
   const writer = document.createElement('div');
   const bulletin_a = document.createElement('a');
 
+  variableJSON[i].month = parseInt(variableJSON[i].month);
+  variableJSON[i].year = parseInt(variableJSON[i].year);
+  variableJSON[i].day = parseInt(variableJSON[i].day);
 
   Num.innerText = sched_cnt++;
   title.innerText = variableJSON[i].title;
@@ -35,6 +42,28 @@ for(let i=0;i<variableJSON.length;i++){
   bulletin_elm.appendChild(writer);
 
   bulletin_board.appendChild(bulletin_elm);
+}
+
+
+for(let i=0;i<variableJSON2.length;i++){
+  const enteredUser_elm = document.createElement('div');
+  const enteredUser_email = document.createElement('div');
+  const enteredUser_name = document.createElement('div');
+  const enteredUser_a = document.createElement('a');
+
+  enteredUser_email.innerText = "email : " + variableJSON2[i].email;
+  enteredUser_name.innerText = "name : " + variableJSON2[i].name;
+  enteredUser_a.href = window.location.href.split("/")[0] + "/user/" + variableJSON2[i].email;
+  console.log("href : ",enteredUser_a.href);
+
+  enteredUser_elm.classList.add('enteredUser-element');
+  enteredUser_email.classList.add('enteredUser-element-email');
+  enteredUser_name.classList.add('enteredUser-element-name');
+
+  enteredUser_elm.appendChild(enteredUser_email);
+  enteredUser_elm.appendChild(enteredUser_name);
+
+  enteredUser_board.appendChild(enteredUser_elm);
 }
 
 const init = {

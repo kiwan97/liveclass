@@ -17,6 +17,7 @@ const {getJoin,postJoin,getLogin,postLogin,getLogout,postGoogleLogin} = require(
 const passport = require("passport");
 let roomlist = {};
 let classlist = {};
+let userlist = {};
 let GuestCnt = 0;
 // let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
 let shell = new PythonShell('facedetect-py/cv_close_eye_detect2.py');
@@ -36,6 +37,7 @@ const localsMiddleWares= (req,res,next) => {
     }
     
     res.locals.user = req.user || null
+    userlist[res.locals.user.email] = {email: res.locals.user.email, name:res.locals.user.name};
     console.log(res.locals.user);
     next();
 };
@@ -87,7 +89,7 @@ app.post('/class',(req,res) => {
     if(classlist[req.body.class] != null){
         return res.redirect('/rooms');
     }
-    classlist[req.body.class] = {users: {}, builder: res.locals.user.email, dailysched: []};
+    classlist[req.body.class] = {users: [], builder: res.locals.user.email, dailysched: []};
     // res.redirect(req.body.class);
     res.redirect("/rooms");
 });
@@ -106,14 +108,17 @@ app.post('/rooms',(req,res) => {
 
 app.post('/api/addClassSched',(req,res)=>{
     const {
-        body: {title,writer,year,month,day,info,class:class2}
+        body: {className2,title,writer,year,month,day,info}
     } = req;
     console.log(req.body);
     const newId = '_' + Math.random().toString(36).substr(2, 9);
     console.log('newId : ',newId);
-    classlist[class2].dailysched.push({"schedId":newId,"title":title,"writer":writer,"year":year, "month": month, "day": day, "info": info});
+    console.log('className: ',className2);
+    console.log('title : ',title);
+    console.log("classlist[] : ",classlist[className2]);
+    classlist[className2].dailysched.push({"schedId":newId,"title":title,"writer":writer,"year":year, "month": month, "day": day, "info": info});
     res.end();
-    // res.render('class',{ className: room, builder: classlist[room].builder, dailysched: JSON.stringify(classlist[room].dailysched)})
+    // res.render('class',{ className: className2, builder: classlist[className2].builder, dailysched: JSON.stringify(classlist[className2].dailysched)})
 });
 app.get('/rooms',(req,res)=>{
     res.render('rooms', {rooms: roomlist, classes: classlist});
@@ -128,7 +133,9 @@ app.get('/class/:className', (req,res) => {
     if (classlist[req.params.className] == null){
         return res.redirect('/');
     }
-    res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched)});
+    console.log("class enter user : ",res.locals.user);
+    classlist[req.params.className].users.push(res.locals.user);
+    res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched), enteredUser: classlist[req.params.className].users});
 });
 app.get('/class/:className/addSchedForm',(req,res)=>{
     if(classlist[req.params.className]== null){
@@ -150,6 +157,12 @@ app.get('/class/:className/:schedId',(req,res)=>{
     // res.redirect('/rooms');
 });
 
+app.get('/user/:userEmail',(req,res)=>{
+    if(userlist[req.params.userEmail]== null){
+        return res.redirect('/');
+    }
+    res.render('userDetail',{name: userlist[req.params.userEmail].name});
+});
 io.on('connection', function(socket){
     socket.on('image',function(data){
         io.to(data.room).emit('image',data);

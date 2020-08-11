@@ -17,7 +17,8 @@ const formSubmitFunc = async (event) => {
     const writer_ = cur_email;
     const startTime_ = daily_startTime.value;
     const endTime_ = daily_endTime.value;
-    const class_ = window.location.href.split("class/")[1];
+    const class_ = window.location.href.split("class/")[1].split("/")[0];
+    
     daily_input.value = '';
     try{
       fetch('/api/addClassSched', {
@@ -25,11 +26,14 @@ const formSubmitFunc = async (event) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body:  JSON.stringify({class:class_,writer:writer_,title:title_,year:year_, month:month_,day:day_,startTime:startTime_,endTime:endTime_,info:info}),
+        body:  JSON.stringify({className2:class_,writer:writer_,title:title_,year:year_, month:month_,day:day_,startTime:startTime_,endTime:endTime_,info:info}),
       }).then(function(response) {
         console.log(response);
       });
     }catch(error){
           console.log(error);
     }
+
   }
+
+schedForm.addEventListener('submit',formSubmitFunc);

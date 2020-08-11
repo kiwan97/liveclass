@@ -97,11 +97,21 @@
                             <div class="bulletin-element-writer">kiwan</div>
                         </div>
                     </div>
+                    <div id='enteredUser-board' class = 'enteredUser-board'>
+                        <div class="enteredUser-element">
+                            <div>1</div>
+                            <div class="enteredUser-element-email">title</div>
+                            <div class="enteredUser-element-name">kiwan</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
         <span id='variableJSON' hidden>
             <%- JSON.stringify(dailysched); %>
+        </span>
+        <span id='variableJSON2' hidden>
+            <%- JSON.stringify(enteredUser); %>
         </span>
         <script>
                 const className = "<%= className %>";
