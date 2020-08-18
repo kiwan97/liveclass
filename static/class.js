@@ -53,6 +53,7 @@ for(let i=0;i<variableJSON2.length;i++){
 
   enteredUser_email.innerText = "email : " + variableJSON2[i].email;
   enteredUser_name.innerText = "name : " + variableJSON2[i].name;
+  enteredUser_a.innerText = "Link to profile";
   enteredUser_a.href = window.location.href.split("/")[0] + "/user/" + variableJSON2[i].email;
   console.log("href : ",enteredUser_a.href);
 
@@ -62,6 +63,7 @@ for(let i=0;i<variableJSON2.length;i++){
 
   enteredUser_elm.appendChild(enteredUser_email);
   enteredUser_elm.appendChild(enteredUser_name);
+  enteredUser_elm.appendChild(enteredUser_a);
 
   enteredUser_board.appendChild(enteredUser_elm);
 }

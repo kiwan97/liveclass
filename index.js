@@ -32,13 +32,12 @@ shell.on('message', function (message) {
 const localsMiddleWares= (req,res,next) => {
     if(!req.user){
         if(!req.session.user)
-            req.session.user = {email:"Guest#"+GuestCnt, name: "Guest#"+GuestCnt++};
+            req.session.user = {email:"Guest"+GuestCnt, name: "Guest"+GuestCnt++};
         req.user = req.session.user;
     }
     
     res.locals.user = req.user || null
     userlist[res.locals.user.email] = {email: res.locals.user.email, name:res.locals.user.name};
-    console.log(res.locals.user);
     next();
 };
 
@@ -158,10 +157,12 @@ app.get('/class/:className/:schedId',(req,res)=>{
 });
 
 app.get('/user/:userEmail',(req,res)=>{
+    console.log("userEmail param : ",req.params.userEmail);
     if(userlist[req.params.userEmail]== null){
+        console.log("I can't find user.");
         return res.redirect('/');
     }
-    res.render('userDetail',{name: userlist[req.params.userEmail].name});
+    res.render('userProfile',{userEmail: userlist[req.params.userEmail].email,userName: userlist[req.params.userEmail].name});
 });
 io.on('connection', function(socket){
     socket.on('image',function(data){
