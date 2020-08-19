@@ -1,3 +1,32 @@
+let face_data = [{"time":new Date(), "face":"no eyes!"}, {"time":new Date(), "face":"no face!"}, {"time":new Date(), "face": "face!"}];
+let time_label = [];
+let noEyes_data = {};
+let noFace_data = {};
+let yesEyes_data = {};
+
+var variableJSON = JSON.parse($('#variableJSON').text());
+variableJSON = JSON.parse(variableJSON);
+$('#variableJSON').remove();
+console.log(variableJSON.noEyes);
+
+face_data.forEach(function(element){
+    var cnt = 0
+    var i;
+    var tmp = element.time.getFullYear() +"/"
+        + element.time.getMonth() +"/"
+        + element.time.getDay() +"/"
+        + element.time.getHours() +"/"
+        + element.time.getMinutes();
+    for(i=0;i<time_label.length;i++){
+        if(time_label[i]==tmp)
+            cnt++;
+    }
+    if(cnt==0)
+        time_label.push(tmp);
+});
+
+console.log(time_label);
+
 var barChartData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{

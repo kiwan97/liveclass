@@ -18,6 +18,7 @@ const passport = require("passport");
 let roomlist = {};
 let classlist = {};
 let userlist = {};
+let userFaceData = {};
 let GuestCnt = 0;
 // let shell = new PythonShell('/Users/kiwankim/Downloads/Chrome/eye_py/Closed-Eye-Detection-with-opencv/cv_close_eye_detect2.py');
 let shell = new PythonShell('facedetect-py/cv_close_eye_detect2.py');
@@ -26,6 +27,22 @@ shell.on('message', function (message) {
         console.log(message);
         var res = message.split('@');
         io.to(res[1]).emit('face',{face:res[0], email:res[2]});
+
+        if(userFaceData[res[2]]==null){
+            userFaceData[res[2]] = {noFace:[],noEyes:[],yesEyes:[]};
+        }
+        var curDate = new Date();
+        var curTime = curDate.getFullYear() + "/"
+            + curDate.getMonth() + "/"
+            + curDate.getDay() + "/"
+            + curDate.getHours() + "/"
+            + curDate.getMinutes();
+        if(res[0]=="no Face!!!")
+            userFaceData[res[2]].noFace.push(curTime);
+        else if(res[0]=="no eyes!!!")
+            userFaceData[res[2]].noEyes.push(curTime);
+        else if(res[0]=="eyes!!!")
+            userFaceData[res[2]].yesEyes.push(curTime);
         
 });
 
@@ -162,7 +179,10 @@ app.get('/user/:userEmail',(req,res)=>{
         console.log("I can't find user.");
         return res.redirect('/');
     }
-    res.render('userProfile',{userEmail: userlist[req.params.userEmail].email,userName: userlist[req.params.userEmail].name});
+    if(userFaceData[req.params.userEmail]==null){
+        userFaceData[req.params.userEmail] = {noFace:[],noEyes:[],yesEyes:[]};
+    }
+    res.render('userProfile',{userEmail: userlist[req.params.userEmail].email,userName: userlist[req.params.userEmail].name, userFace: JSON.stringify(userFaceData[req.params.userEmail])});
 });
 io.on('connection', function(socket){
     socket.on('image',function(data){
