@@ -34,7 +34,7 @@ shell.on('message', function (message) {
         var curDate = new Date();
         var curTime = curDate.getFullYear() + "/"
             + curDate.getMonth() + "/"
-            + curDate.getDay() + "/"
+            + curDate.getDate() + "/"
             + curDate.getHours() + "/"
             + curDate.getMinutes();
         if(res[0]=="no Face!!!")
@@ -53,7 +53,8 @@ const localsMiddleWares= (req,res,next) => {
         req.user = req.session.user;
     }
     
-    res.locals.user = req.user || null
+    res.locals.user = req.user || null;
+    console.log("current user : ", res.locals.user);
     userlist[res.locals.user.email] = {email: res.locals.user.email, name:res.locals.user.name};
     next();
 };
@@ -64,12 +65,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs')
 
-app.get('/',(req,res) => {
-    res.render('rooms', {rooms: roomlist,classes: classlist});
-});
-app.get('/room', (req,res) => {
-    res.render('room');
-});
+
 app.use(
     session({
         secret: process.env.COOKIE_SECRET,
@@ -84,6 +80,25 @@ app.use(passport.session());
 app.use(localsMiddleWares);
 
 
+app.get('/test',(req,res)=>{
+    res.render(__dirname +'/views/tutor/tutor/index');
+});
+app.get('/test/rooms',(req,res)=>{
+    res.render(__dirname +'/views/tutor/tutor/testimonials',{rooms: roomlist});
+});
+app.get('/test/login',(req,res)=>{
+    res.render(__dirname +'/views/tutor/tutor/login');
+});
+app.get('/test/join',(req,res)=>{
+    res.render(__dirname +'/views/tutor/tutor/join');
+});
+app.get('/',(req,res) => {
+    console.log("user : ",res.locals.user);
+    res.render('rooms', {rooms: roomlist,classes: classlist});
+});
+app.get('/room', (req,res) => {
+    res.render('room');
+});
 
 app.get("/join",getJoin);
 app.post("/join",postJoin,postLogin);
@@ -105,6 +120,7 @@ app.post('/class',(req,res) => {
     if(classlist[req.body.class] != null){
         return res.redirect('/rooms');
     }
+    
     classlist[req.body.class] = {users: [], builder: res.locals.user.email, dailysched: []};
     // res.redirect(req.body.class);
     res.redirect("/rooms");
@@ -124,7 +140,7 @@ app.post('/rooms',(req,res) => {
 
 app.post('/api/addClassSched',(req,res)=>{
     const {
-        body: {className2,title,writer,year,month,day,info}
+        body: {className2,title,writer,year,month,day,info,room}
     } = req;
     console.log(req.body);
     const newId = '_' + Math.random().toString(36).substr(2, 9);
@@ -132,11 +148,16 @@ app.post('/api/addClassSched',(req,res)=>{
     console.log('className: ',className2);
     console.log('title : ',title);
     console.log("classlist[] : ",classlist[className2]);
-    classlist[className2].dailysched.push({"schedId":newId,"title":title,"writer":writer,"year":year, "month": month, "day": day, "info": info});
+    classlist[className2].dailysched.push({"schedId":newId,"title":title,"writer":writer,"year":year, "month": month, "day": day, "info": info,"room":room});
     res.end();
     // res.render('class',{ className: className2, builder: classlist[className2].builder, dailysched: JSON.stringify(classlist[className2].dailysched)})
 });
+// app.get('/test',(req,res)=>{
+//     res.render('tutor/tutor/index');
+// });
 app.get('/rooms',(req,res)=>{
+    console.log("rooms! user", res.locals.user);
+    console.log("rooms! user2", req.user);
     res.render('rooms', {rooms: roomlist, classes: classlist});
 });
 app.get('/:room', (req, res) => {
@@ -149,6 +170,8 @@ app.get('/class/:className', (req,res) => {
     if (classlist[req.params.className] == null){
         return res.redirect('/');
     }
+    console.log("class! user : ",res.locals.user);
+    console.log("class! user2 : ",req.user);
     console.log("class enter user : ",res.locals.user);
     classlist[req.params.className].users.push(res.locals.user);
     res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched), enteredUser: classlist[req.params.className].users});
@@ -218,5 +241,10 @@ io.on('connection', function(socket){
     });
     socket.on('chat',(data) => {
         io.to(data.room).emit('chat',data);
+    });
+    socket.on('radio', function(data) {
+        // can choose to broadcast it to whoever you want
+        console.log("Radio in ! ");
+        io.to(data.room).emit('voice', data.blob);
     });
 });

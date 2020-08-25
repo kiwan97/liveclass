@@ -6,6 +6,7 @@ const schedForm = document.getElementById('daily-schedule-form');
 const daily_input = document.getElementById('daily-input');
 const daily_startTime = document.getElementById('daily-startTime');
 const daily_endTime = document.getElementById('daily-endTime');
+const daily_room = document.getElementById('daily-room');
 
 const formSubmitFunc = async (event) => {
     event.preventDefault();
@@ -17,6 +18,7 @@ const formSubmitFunc = async (event) => {
     const writer_ = cur_email;
     const startTime_ = daily_startTime.value;
     const endTime_ = daily_endTime.value;
+    const room_ = daily_room.value;
     const class_ = window.location.href.split("class/")[1].split("/")[0];
     
     daily_input.value = '';
@@ -26,7 +28,7 @@ const formSubmitFunc = async (event) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body:  JSON.stringify({className2:class_,writer:writer_,title:title_,year:year_, month:month_,day:day_,startTime:startTime_,endTime:endTime_,info:info}),
+        body:  JSON.stringify({className2:class_,writer:writer_,title:title_,year:year_, month:month_,day:day_,startTime:startTime_,endTime:endTime_,info:info,room:room_}),
       }).then(function(response) {
         console.log(response);
       });

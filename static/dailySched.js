@@ -16,6 +16,7 @@ const sched_year = document.getElementById('year');
 const sched_day = document.getElementById('day');
 const sched_startTime = document.getElementById('startTime');
 const shced_endTime = document.getElementById('endTime');
+const sched_room = document.getElementById('sched-room');
 
 sched_title.innerText = variableJSON[0].title;
 sched_info.innerText = variableJSON[0].info;
@@ -23,4 +24,4 @@ sched_writer.innerText = variableJSON[0].writer;
 sched_year.innerText = variableJSON[0].year;
 sched_month.innerText = Number(variableJSON[0].month)+1;
 sched_day.innerText = variableJSON[0].day;
-
+sched_room.innerText = variableJSON[0].room;

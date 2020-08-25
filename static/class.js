@@ -6,6 +6,7 @@ const daily_title = document.getElementById('daily-title');
 const sched_container = document.getElementById('dailySchedule');
 const bulletin_board = document.getElementById('bulletin-board');
 const enteredUser_board = document.getElementById('enteredUser-board');
+const daily_roomlist = document.getElementById('class-list');
 var variableJSON = JSON.parse($('#variableJSON').text());
 var variableJSON2 = JSON.parse($('#variableJSON2').text());
 let sched_cnt = 0;
@@ -40,8 +41,9 @@ for(let i=0;i<variableJSON.length;i++){
   bulletin_elm.appendChild(Num);
   bulletin_elm.appendChild(title);
   bulletin_elm.appendChild(writer);
-
-  bulletin_board.appendChild(bulletin_elm);
+  bulletin_a.appendChild(bulletin_elm);
+  // bulletin_board.appendChild(bulletin_elm);
+  bulletin_board.appendChild(bulletin_a);
 }
 
 
@@ -185,13 +187,21 @@ const init = {
     $todoList.appendChild(createLi(id, val, date));
   }
   function reloadTodo(yy, mm, dd){
-    sched_container.innerHTML = '';
+    // sched_container.innerHTML = '';
+    daily_roomlist.innerHTML = '';
     const result = variableJSON.filter(schedule => schedule.year == yy && schedule.month == mm && schedule.day == dd);
     for(let i=0;i<result.length;i++){
       console.log(result[i]);
       const newSpan = document.createElement('span');
-      newSpan.innerText = JSON.stringify(result[i]);
-      sched_container.appendChild(newSpan);
+      const newA = document.createElement('a');
+      newSpan.innerText = "ROOM : " + result[i].room;
+      newA.href = "/"+result[i].room;
+      newA.title = "Room link";
+      newA.appendChild(newSpan);
+      // sched_container.appendChild(newSpan);
+      // daily_roomlist.appendChild(newSpan);
+      daily_roomlist.appendChild(newA);
+
     }
   }
   loadYYMM(init.today);

@@ -30,7 +30,12 @@
     height: 100%;
     background-color: red;
 }
-
+.bulletin-board{
+  height: 50%;
+}
+.enteredUser-board{
+  height: 50%;
+}
 .bulletin-element{
     display: flex;
     justify-content: space-between;
@@ -66,11 +71,12 @@ html, body {
     cursor: default;
   }
   .my-calendar .clicked-date {
-    border-radius: 25px;
-    margin-top: 36px;
+    /* visibility: collapse; */
+    border-radius: 0;
+    margin-top: 0;
     float: left;
-    width: 42%;
-    padding: 46px 0 26px;
+    width: 40%;
+    padding: 0;
     background: #ddd;
   }
   .my-calendar .calendar-box {
@@ -80,10 +86,10 @@ html, body {
   }
   
   .clicked-date .cal-day {
-    font-size: 24px;
+    font-size: 0;
   }
   .clicked-date .cal-date {
-    font-size: 130px;
+    font-size: 0;
   }
   
   .ctr-box {
@@ -140,13 +146,13 @@ html, body {
     cursor: pointer;
   }
   .cal-table td.today {
-    background: #ffd255;
-    border-radius: 50%;
-    color: #fff;
+    /* background: #ffd255;
+    border-radius: 10%;
+    color: #fff; */
   }
   .cal-table td.day-active {
     background: #ff8585;
-    border-radius: 50%;
+    border-radius: 10%;
     color: #fff;
   }
   .cal-table td.has-event:after {

@@ -5,13 +5,15 @@ const canvasElement = document.getElementById('canvas');
 const snapSoundElement = document.getElementById('snapSound');
 const webcam = new Webcam(webcamElement, 'user', canvasElement, null);
 const btn1 = document.getElementById('btn1');
+const btn2 = document.getElementById('btn2');
 const imgcontainer = document.getElementById('image_container');
 const teacher_container = document.getElementById('teacher_container');
 const chatForm = document.getElementById('chatForm');
 const chat_board = document.getElementById('chat_board');
-
+var mediaRecorder;
+var setintervalID;
 let timelist = {};
-
+console.log("room.js");
 chatForm.addEventListener('submit', e=>{
     e.preventDefault();
 
@@ -61,6 +63,25 @@ btn1.addEventListener('click',function(){
     }   
     setInterval(snapfun,500);
     btn1.style="display: none;";
+});
+function mediaRecoderOFFON(){
+    mediaRecorder.stop();
+    mediaRecorder.start();
+}
+btn2.addEventListener('click',function(){
+    console.log(btn2.innerText);
+    
+    if(btn2.innerText == "audio on"){
+        mediaRecorder.start();
+        setintervalID = setInterval(mediaRecoderOFFON,1000);
+        console.log("on it on : ",setintervalID);
+        btn2.innerText = "audio off";
+    }else if(btn2.innerText == "audio off"){
+        console.log("interval id : ", setintervalID)
+        clearInterval(setintervalID);
+        mediaRecorder.stop();
+        btn2.innerText = "audio on";
+    }
 });
 
 socket.on('image',(data) => {
@@ -116,13 +137,49 @@ const init = function(){
 
 init();
 
+ //audio
+ var constraints = { audio: true };
+ 
+ navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+     mediaRecorder = new MediaRecorder(mediaStream);
+     mediaRecorder.onstart = function(e) {
+         this.chunks = [];
+     };
+     mediaRecorder.ondataavailable = function(e) {
+         this.chunks.push(e.data);
+     };
+     mediaRecorder.onstop = function(e) {
+         var blob = new Blob(this.chunks, { 'type' : 'audio/ogg; codecs=opus' });
+         socket.emit('radio',{room:roomName, blob: blob});
+     };
+ 
+     // Start recording
+    //  mediaRecorder.start();
+    
+     // Stop recording after 5 seconds and broadcast it to server
+    //  setTimeout(function() {
+    //      mediaRecorder.stop()
+    //  }, 5000);
+ });
+ 
+
+ // When the client receives a voice message it will play the sound
+ socket.on('voice', function(arrayBuffer) {
+     var blob = new Blob([arrayBuffer], { 'type' : 'audio/ogg; codecs=opus' });
+     var audio = document.createElement('audio');
+     audio.src = window.URL.createObjectURL(blob);
+     audio.play();
+ });
+
+
 //floating window
 document.ready(function(){
     $(function() {
       $( "#console" ).draggable();
     })
   });
-  function drag(){
+function drag(){
     $(function() { $( "#console" ).draggable() } )
     $(function() { $( "#dragbtn" ).remove() } )
-  }
+};
+ 
