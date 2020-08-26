@@ -8,18 +8,20 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
-  <link rel="stylesheet" href="fonts/brand/style.css">
+  <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="/static/fonts/brand/style.css">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
-  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/static/css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/static/css/aos.css">
+
+  <link rel='stylesheet' href='/static/stylesheets/class.css' />
 
   <!-- MAIN CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
 
 </head>
 
@@ -44,7 +46,7 @@
 
           <div class="col-3">
             <div class="site-logo">
-              <a href="index.html"><strong>Tutor</strong></a>
+              <a href="index.html"><strong>Live class</strong></a>
             </div>
           </div>
 
@@ -58,8 +60,8 @@
                 <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
                 <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
                 <li><a href="blog.html" class="nav-link">Blog</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li class="active"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="active"><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
               </ul>
             </nav>
           </div>
@@ -70,65 +72,78 @@
 
     </header>
 
-
-    <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+    
+    <div class="site-section-cover overlay" style="background-image: url('/static/images/hero_bg.jpg');">
 
       <div class="container">
+        
         <div class="row align-items-center justify-content-center">
+          
           <div class="col-lg-10 text-center">
-            <h1><strong>Contact Us</strong></h1>
+            <h1><strong>Schedule</strong></h1>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mb-5 mb-lg-0 order-lg-2">
+            <img src="/static/images/hero_bg.jpg" alt="Image" class="img-fluid rounded">
+          </div>
+          
+          <div class="col-lg-4 mr-auto">
+            <div class="heading mb-4">
+              <span class="caption">title</span>
+              <h2 id="sched-title">Our Company</h2>
+            </div>
+            
+            <p id="sched-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit suscipit, repudiandae similique accusantium eius nulla quam laudantium sequi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <img src="/static/images/hero_bg.jpg" alt="Image" class="img-fluid rounded">
+          </div>
+          <div class="col-lg-4 ml-auto">
+            <div class="heading mb-4">
+              <span class="caption">Teacher</span>
+              <h2 id="sched-writer">Mission and Vision</h2>
+            </div>
+            <div class="heading mb-4">
+              <span class="caption">Start Time</span>
+              <h2 id="startTime">Mission and Vision</h2>
+            </div>
+            <div class="heading mb-4">
+              <span class="caption">End Time</span>
+              <h2 id="endTime">Mission ision</h2>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
 
-
-
-    <div class="site-section bg-light" id="contact-section">
+    <div class="site-section bg-primary py-5 cta">
       <div class="container">
-        
-        <div class="row">
-          <div class="col-lg-8 mb-5" >
-            <form action="#" method="post">
-              <div class="form-group row">
-                <div class="col-md-6 mb-4 mb-lg-0">
-                  <input type="text" class="form-control" placeholder="First name">
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="First name">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Email address">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea name="" id="" class="form-control" placeholder="Write your message." cols="30" rows="10"></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-6 mr-auto">
-                  <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Send Message">
-                </div>
-              </div>
-            </form>
+        <div class="row align-items-center">
+          <div class="col-lg-7 mb-4 mb-md-0">
+            <h2 class="mb-0 text-white">강의실로 이동하기</h2>
+            <p class="mb-0 opa-7" id="sched-room">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
           </div>
-          <div class="col-lg-4 ml-auto">
-            <div class="bg-white p-3 p-md-5">
-              <h3 class="text-black mb-4">Contact Info</h3>
-              <ul class="list-unstyled footer-link">
-                <li class="d-block mb-3">
-                  <span class="d-block text-black">Address:</span>
-                  <span>34 Street Name, City Name Here, United States</span></li>
-                <li class="d-block mb-3"><span class="d-block text-black">Phone:</span><span>+1 242 4942 290</span></li>
-                <li class="d-block mb-3"><span class="d-block text-black">Email:</span><span>info@yourdomain.com</span></li>
-              </ul>
-            </div>
+          <div class="col-lg-5 text-md-right">
+            <a href="#" id="roombtn" class="btn btn-primary btn-white">Enter Room</a>
           </div>
         </div>
       </div>
@@ -208,20 +223,24 @@
     </footer>
 
   </div>
+  <span id='variableJSON' hidden>
+      <%- JSON.stringify(sched); %>
+  </span>
+  <script src="/static/js/jquery-3.3.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.sticky.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/jquery.fancybox.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/bootstrap-datepicker.min.js"></script>
+  <script src="/static/js/aos.js"></script>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.sticky.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script>
-  <script src="js/aos.js"></script>
+  <script src="/static/js/main.js"></script>
 
-  <script src="js/main.js"></script>
+  <script src="/static/dailySched.js"></script>
 
 </body>
 

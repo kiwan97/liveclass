@@ -84,7 +84,7 @@ app.get('/test',(req,res)=>{
     res.render(__dirname +'/views/tutor/tutor/index');
 });
 app.get('/test/rooms',(req,res)=>{
-    res.render(__dirname +'/views/tutor/tutor/testimonials',{rooms: roomlist});
+    res.render(__dirname +'/views/tutor/tutor/rooms',{rooms: roomlist});
 });
 app.get('/test/login',(req,res)=>{
     res.render(__dirname +'/views/tutor/tutor/login');
@@ -92,6 +92,39 @@ app.get('/test/login',(req,res)=>{
 app.get('/test/join',(req,res)=>{
     res.render(__dirname +'/views/tutor/tutor/join');
 });
+app.get('/test/classes',(req,res)=>{
+    res.render(__dirname +'/views/tutor/tutor/classes',{classes: classlist});
+});
+app.get('/test/class/:className', (req,res) => {
+    if (classlist[req.params.className] == null){
+        return res.redirect('/');
+    }
+    console.log("class! user : ",res.locals.user);
+    console.log("class! user2 : ",req.user);
+    console.log("class enter user : ",res.locals.user);
+    classlist[req.params.className].users.push(res.locals.user);
+    res.render(__dirname +'/views/tutor/tutor/class',{ className: req.params.className, builder: classlist[req.params.className].builder, dailysched: JSON.stringify(classlist[req.params.className].dailysched), enteredUser: classlist[req.params.className].users});
+});
+app.get('/test/class/:className/addSchedForm',(req,res)=>{
+    if(classlist[req.params.className]== null){
+        return res.redirect('/');
+    }
+    res.render(__dirname +'/views/tutor/tutor/newAddSchedForm', {className: req.params.className, builder: classlist[req.params.className].builder});
+});
+app.get('/test/class/:className/:schedId',(req,res)=>{
+    const {
+        params: {className, schedId}
+    } = req;
+
+    console.log(classlist[req.params.className].dailysched.filter(sched => sched.schedId == schedId));
+
+    res.render(__dirname +'/views/tutor/tutor/schedule',{className: req.params.className, builder: classlist[req.params.className].builder, sched: JSON.stringify(classlist[req.params.className].dailysched)})
+    // const tmp_sched = classlist[req.params.className].dailysched.filter(sched => sched.schedId == schedId)
+    // console.log('tmp_sched : ',tmp_sched);
+    // res.render('class',{ className: req.params.className, builder: classlist[req.params.className].builder, sched: JSON.stringify(classlist[req.params.className].dailysched)});
+    // res.redirect('/rooms');
+});
+
 app.get('/',(req,res) => {
     console.log("user : ",res.locals.user);
     res.render('rooms', {rooms: roomlist,classes: classlist});
@@ -140,7 +173,7 @@ app.post('/rooms',(req,res) => {
 
 app.post('/api/addClassSched',(req,res)=>{
     const {
-        body: {className2,title,writer,year,month,day,info,room}
+        body: {className2,title,writer,info,room,startTime,endTime}
     } = req;
     console.log(req.body);
     const newId = '_' + Math.random().toString(36).substr(2, 9);
@@ -148,7 +181,7 @@ app.post('/api/addClassSched',(req,res)=>{
     console.log('className: ',className2);
     console.log('title : ',title);
     console.log("classlist[] : ",classlist[className2]);
-    classlist[className2].dailysched.push({"schedId":newId,"title":title,"writer":writer,"year":year, "month": month, "day": day, "info": info,"room":room});
+    classlist[className2].dailysched.push({"schedId":newId,"className":className2,"title":title,"writer":writer, "info": info,"room":room,"startTime":startTime,"endTime":endTime});
     res.end();
     // res.render('class',{ className: className2, builder: classlist[className2].builder, dailysched: JSON.stringify(classlist[className2].dailysched)})
 });

@@ -256,7 +256,10 @@
             <p class="mb-0 opa-7">AI를 통해 학생을 모니터링하는 화상 수업</p>
           </div>
           <div class="col-lg-5 text-md-right">
-            <a href="#" class="btn btn-primary btn-white">New Room</a>
+            <form id="myform" class="newclass-form" action="/room" method="POST">
+              <input name="room" type="text" required>
+              <a href="#" class="btn btn-primary btn-white" onclick="document.getElementById('myform').submit()">New Room</a>
+            </form>
           </div>
         </div>
       </div>

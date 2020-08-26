@@ -1,6 +1,3 @@
-const daily_day = document.getElementById('daily-day');
-const daily_month = document.getElementById('daily-month');
-const daily_year = document.getElementById('daily-year');
 const daily_title = document.getElementById('daily-title');
 const schedForm = document.getElementById('daily-schedule-form');
 const daily_input = document.getElementById('daily-input');
@@ -10,17 +7,20 @@ const daily_room = document.getElementById('daily-room');
 
 const formSubmitFunc = async (event) => {
     event.preventDefault();
-    const day_ = daily_day.value;
-    const month_ = daily_month.value;
+    console.log("formSubmitFunc");
     const info = daily_input.value;
-    const year_ = daily_year.value;
+    daily_input.value = "";
     const title_ = daily_title.value;
+    daily_title.value = "";
     const writer_ = cur_email;
     const startTime_ = daily_startTime.value;
+    daily_startTime.value = null;
     const endTime_ = daily_endTime.value;
+    daily_endTime.value = null;
     const room_ = daily_room.value;
+    daily_room.value = "";
     const class_ = window.location.href.split("class/")[1].split("/")[0];
-    
+  
     daily_input.value = '';
     try{
       fetch('/api/addClassSched', {
@@ -28,7 +28,7 @@ const formSubmitFunc = async (event) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body:  JSON.stringify({className2:class_,writer:writer_,title:title_,year:year_, month:month_,day:day_,startTime:startTime_,endTime:endTime_,info:info,room:room_}),
+        body:  JSON.stringify({className2:class_,writer:writer_,title:title_,startTime:startTime_,endTime:endTime_,info:info,room:room_}),
       }).then(function(response) {
         console.log(response);
       });

@@ -8,18 +8,24 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
-  <link rel="stylesheet" href="fonts/brand/style.css">
+  <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="/static/fonts/brand/style.css">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
-  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/static/css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/static/css/aos.css">
+
+  <link rel='stylesheet' href='/static/stylesheets/class.css' />
 
   <!-- MAIN CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.js'></script>
+  
 
 </head>
 
@@ -70,36 +76,43 @@
 
     </header>
 
-
-    <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+    
+    <div class="site-section-cover overlay" style="background-image: url('/static/images/hero_bg.jpg');">
 
       <div class="container">
+        
         <div class="row align-items-center justify-content-center">
+          
           <div class="col-lg-10 text-center">
             <h1><strong>About The Company</strong></h1>
           </div>
         </div>
+        
       </div>
+      
     </div>
-
+    
 
 
 
     <div class="site-section">
       <div class="container">
-        <div class="row">
+          <div id='calendar'></div>
+        <!-- <div class="row">
           <div class="col-lg-6 mb-5 mb-lg-0 order-lg-2">
-            <img src="images/hero_bg.jpg" alt="Image" class="img-fluid rounded">
+            <img src="/static/images/hero_bg.jpg" alt="Image" class="img-fluid rounded">
           </div>
+          
           <div class="col-lg-4 mr-auto">
             <div class="heading mb-4">
               <span class="caption">About us</span>
               <h2>Our Company</h2>
             </div>
+            
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit suscipit, repudiandae similique accusantium eius nulla quam laudantium sequi.</p>
             <p>Debitis voluptates corporis saepe molestias tenetur ab quae, quo earum commodi, laborum dolore, fuga aliquid delectus cum ipsa?</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -120,7 +133,7 @@
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="post-entry-1 h-100 person-1">
 
-              <img src="images/person_1.jpg" alt="Image"
+              <img src="/static/images/person_1.jpg" alt="Image"
               class="img-fluid">
 
               <div class="post-entry-1-contents">
@@ -133,21 +146,7 @@
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="post-entry-1 h-100 person-1">
 
-              <img src="images/person_2.jpg" alt="Image"
-              class="img-fluid">
-
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100 person-1">
-
-              <img src="images/person_3.jpg" alt="Image"
+              <img src="/static/images/person_2.jpg" alt="Image"
               class="img-fluid">
 
               <div class="post-entry-1-contents">
@@ -161,7 +160,7 @@
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="post-entry-1 h-100 person-1">
 
-              <img src="images/person_4.jpg" alt="Image"
+              <img src="/static/images/person_3.jpg" alt="Image"
               class="img-fluid">
 
               <div class="post-entry-1-contents">
@@ -175,7 +174,7 @@
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="post-entry-1 h-100 person-1">
 
-              <img src="images/person_5.jpg" alt="Image"
+              <img src="/static/images/person_4.jpg" alt="Image"
               class="img-fluid">
 
               <div class="post-entry-1-contents">
@@ -189,7 +188,21 @@
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="post-entry-1 h-100 person-1">
 
-              <img src="images/person_1.jpg" alt="Image"
+              <img src="/static/images/person_5.jpg" alt="Image"
+              class="img-fluid">
+
+              <div class="post-entry-1-contents">
+                <span class="meta">Founder</span>
+                <h2>James Doe</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-5">
+            <div class="post-entry-1 h-100 person-1">
+
+              <img src="/static/images/person_1.jpg" alt="Image"
               class="img-fluid">
 
               <div class="post-entry-1-contents">
@@ -209,7 +222,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 mb-5 mb-lg-0">
-            <img src="images/hero_bg.jpg" alt="Image" class="img-fluid rounded">
+            <img src="/static/images/hero_bg.jpg" alt="Image" class="img-fluid rounded">
           </div>
           <div class="col-lg-4 ml-auto">
             <div class="heading mb-4">
@@ -312,20 +325,27 @@
     </footer>
 
   </div>
+  <span id='variableJSON' hidden>
+      <%- JSON.stringify(dailysched); %>
+  </span>
+  <span id='variableJSON2' hidden>
+      <%- JSON.stringify(enteredUser); %>
+  </span>
+  <script src="/static/js/jquery-3.3.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script src="/static/js/jquery.sticky.js"></script>
+  <script src="/static/js/jquery.waypoints.min.js"></script>
+  <script src="/static/js/jquery.animateNumber.min.js"></script>
+  <script src="/static/js/jquery.fancybox.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <script src="/static/js/bootstrap-datepicker.min.js"></script>
+  <script src="/static/js/aos.js"></script>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.sticky.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script>
-  <script src="js/aos.js"></script>
+  <script src="/static/js/main.js"></script>
 
-  <script src="js/main.js"></script>
+  <script src="/static/handleFullCalendar.js"></script>
 
 </body>
 
