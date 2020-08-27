@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Tutor &mdash; Free Website Template by Colorlib</title>
+  <title>Live Class &mdash; Free Website Template by Colorlib</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -50,22 +50,34 @@
 
           <div class="col-3">
             <div class="site-logo">
-              <a href="index.html"><strong>Tutor</strong></a>
+              <a href="index.html"><strong>Live Class</strong></a>
             </div>
           </div>
 
           <div class="col-9  text-right">
-
+              
             <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
 
             <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
               <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
-                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
-                <li><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="active"><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/rooms" class="nav-link">Rooms</a></li>
+                <li class="active"><a href="/classes" class="nav-link">Classes</a></li>
+                <li><a href="/test/user/<%= user.email %>" class="nav-link">
+                  <% if (user) { %>
+                    <%= user.name %>
+                    <script>
+                        const userName = "<%= user.name %>";
+                    </script>
+                <% }else{%>
+                    <%= "Guest" %>
+                    <script>
+                        const userName = "Guest";
+                    </script>
+                <% } %>
+                </a></li>
+                <li><a href="/login" class="nav-link">Login</a></li>
+                <li><a href="/join" class="nav-link">Join</a></li>
               </ul>
             </nav>
           </div>
@@ -84,7 +96,7 @@
         <div class="row align-items-center justify-content-center">
           
           <div class="col-lg-10 text-center">
-            <h1><strong>About The Company</strong></h1>
+            <h1><strong>The class</strong></h1>
           </div>
         </div>
         
@@ -121,15 +133,15 @@
         <div class="row justify-content-center text-center mb-5 section-2-title">
           <div class="col-md-6">
             <div class="heading mb-4">
-              <span class="caption">The team</span>
-              <h2>Meet Our Team</h2>
+              <span class="caption">The Class</span>
+              <h2>Member</h2>
             </div>
 
 
           </div>
         </div>
         <div class="row align-items-stretch">
-
+          <% enteredUser.forEach(entereduser => { %>
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="post-entry-1 h-100 person-1">
 
@@ -137,82 +149,13 @@
               class="img-fluid">
 
               <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
+                <span class="meta">Student</span>
+                <h2><%= entereduser.name %></h2>
+                <p><%= entereduser.email %></p>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100 person-1">
-
-              <img src="/static/images/person_2.jpg" alt="Image"
-              class="img-fluid">
-
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100 person-1">
-
-              <img src="/static/images/person_3.jpg" alt="Image"
-              class="img-fluid">
-
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100 person-1">
-
-              <img src="/static/images/person_4.jpg" alt="Image"
-              class="img-fluid">
-
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100 person-1">
-
-              <img src="/static/images/person_5.jpg" alt="Image"
-              class="img-fluid">
-
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100 person-1">
-
-              <img src="/static/images/person_1.jpg" alt="Image"
-              class="img-fluid">
-
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
+          <% }) %>
 
         </div>
       </div>
@@ -226,8 +169,8 @@
           </div>
           <div class="col-lg-4 ml-auto">
             <div class="heading mb-4">
-              <span class="caption">Why Founded</span>
-              <h2>Mission and Vision</h2>
+              <span class="caption">class name</span>
+              <h2><%= className %></h2>
             </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit suscipit, repudiandae similique accusantium eius nulla quam laudantium sequi.</p>
             <p>Debitis voluptates corporis saepe molestias tenetur ab quae, quo earum commodi, laborum dolore, fuga aliquid delectus cum ipsa?</p>
@@ -241,11 +184,11 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-7 mb-4 mb-md-0">
-            <h2 class="mb-0 text-white">What are you waiting for?</h2>
-            <p class="mb-0 opa-7">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, laboriosam.</p>
+            <h2 class="mb-0 text-white">새로운 스케줄 등록하기</h2>
+            <p class="mb-0 opa-7">우측 버튼을 통해 달력에 새로운 수업 스케줄을 등록해보세요.</p>
           </div>
           <div class="col-lg-5 text-md-right">
-            <a href="#" class="btn btn-primary btn-white">Enroll Now</a>
+            <a href="/class/<%= className %>/addSchedForm" class="btn btn-primary btn-white">등록 하기</a>
           </div>
         </div>
       </div>
@@ -327,9 +270,6 @@
   </div>
   <span id='variableJSON' hidden>
       <%- JSON.stringify(dailysched); %>
-  </span>
-  <span id='variableJSON2' hidden>
-      <%- JSON.stringify(enteredUser); %>
   </span>
   <script src="/static/js/jquery-3.3.1.min.js"></script>
   <script src="/static/js/popper.min.js"></script>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Tutor &mdash; Free Website Template by Colorlib</title>
+  <title>Live Class &mdash; Free Website Template by Colorlib</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -46,22 +46,34 @@
 
           <div class="col-3">
             <div class="site-logo">
-              <a href="index.html"><strong>Live class</strong></a>
+              <a href="/"><strong>Live Class</strong></a>
             </div>
           </div>
 
           <div class="col-9  text-right">
-
+              
             <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
 
             <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
               <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
-                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
-                <li><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="active"><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/rooms" class="nav-link">Rooms</a></li>
+                <li  class="active"><a href="/classes" class="nav-link">Classes</a></li>
+                <li><a href="/user/<%= user.email %>" class="nav-link">
+                  <% if (user) { %>
+                    <%= user.name %>
+                    <script>
+                        const userName = "<%= user.name %>";
+                    </script>
+                <% }else{%>
+                    <%= "Guest" %>
+                    <script>
+                        const userName = "Guest";
+                    </script>
+                <% } %>
+                </a></li>
+                <li><a href="/login" class="nav-link">Login</a></li>
+                <li><a href="/join" class="nav-link">Join</a></li>
               </ul>
             </nav>
           </div>
@@ -87,9 +99,6 @@
       </div>
       
     </div>
-    
-
-
 
     <div class="site-section">
       <div class="container">

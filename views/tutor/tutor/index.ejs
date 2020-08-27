@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Tutor &mdash; Free Website Template by Colorlib</title>
+    <title>Live Class &mdash; Free Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -43,20 +43,20 @@
 
             <div class="col-3">
               <div class="site-logo">
-                <a href="/test"><strong>Live Class</strong></a>
+                <a href="/"><strong>Live Class</strong></a>
               </div>
             </div>
 
             <div class="col-9  text-right">
               
               <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
-
+  
               <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
                 <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                  <li class="active"><a href="index.html" class="nav-link">Home</a></li>
-                  <li><a href="/test/rooms" class="nav-link">Rooms</a></li>
-                  <li><a href="/test/classes" class="nav-link">Classes</a></li>
-                  <li><a href="blog.html" class="nav-link">
+                  <li class="active"><a href="/" class="nav-link">Home</a></li>
+                  <li><a href="/rooms" class="nav-link">Rooms</a></li>
+                  <li><a href="/classes" class="nav-link">Classes</a></li>
+                  <li><a href="/user/<%= user.email %>" class="nav-link">
                     <% if (user) { %>
                       <%= user.name %>
                       <script>
@@ -69,8 +69,8 @@
                       </script>
                   <% } %>
                   </a></li>
-                  <li><a href="about.html" class="nav-link">About</a></li>
-                  <li><a href="contact.html" class="nav-link">Contact</a></li>
+                  <li><a href="/login" class="nav-link">Login</a></li>
+                  <li><a href="/join" class="nav-link">Join</a></li>
                 </ul>
               </nav>
             </div>
@@ -101,13 +101,13 @@
                 <div class="d-flex align-items-center">
                   <div class="img"><img src="/static/images/img_1.jpg" class="img-fluid" alt="Image"></div>
                   <div class="text">
-                    <a href="#" class="category">Tutorial</a>
-                    <h3><a href="#">Learning React Native</a></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum quidem totam exercitationem eveniet blanditiis nulla, et possimus, itaque alias maxime!</p>
-                    <p class="mb-0">
+                    <a href="#" class="category">Room</a>
+                    <h3><a href="#">철학이란 무엇인가?</a></h3>
+                    <p>철학에 대한 깊이 있는 사고를 통해서 철학에 대해 알아봅니다. 또한 우리 삶속에서 철학이 차지하는 역할과 그 의미에 대해서 탐구해봅니다.</p>
+                    <!-- <p class="mb-0">
                       <span class="brand-react h5"></span>
                       <span class="brand-javascript h5"></span>
-                    </p>
+                    </p> -->
                     <p class="meta">
                       <span class="mr-2 mb-2">1hr 24m</span>
                       <span class="mr-2 mb-2">Advanced</span>
@@ -119,27 +119,15 @@
             </div>
             <div class="col-lg-4">
               <div class="box small h-100">
-                <div class="d-flex align-items-center mb-2">
-                  <div class="img"><img src="/static/images/img_2.jpg" class="img-fluid" alt="Image"></div>
-                  <div class="text">
-                    <a href="#" class="category">Tutorial</a>
-                    <h3><a href="#">Learning React Native</a></h3>
+                <% Object.keys(rooms).forEach(room => { %>
+                  <div class="d-flex align-items-center mb-2">
+                      <div class="img"><img src="/static/images/img_2.jpg" class="img-fluid" alt="Image"></div>
+                      <div class="text">
+                        <a href="#" class="category">Room</a>
+                        <h3><a href="/<%= room %>"><%= room %></a></h3>
+                      </div>
                   </div>
-                </div>
-                <div class="d-flex align-items-center mb-2">
-                  <div class="img"><img src="/static/images/img_3.jpg" class="img-fluid" alt="Image"></div>
-                  <div class="text">
-                    <a href="#" class="category">Tutorial</a>
-                    <h3><a href="#">Learning React Native</a></h3>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center">
-                  <div class="img"><img src="/static/images/img_4.jpg" class="img-fluid" alt="Image"></div>
-                  <div class="text">
-                    <a href="#" class="category">Tutorial</a>
-                    <h3><a href="#">Learning React Native</a></h3>
-                  </div>
-                </div>
+                <% }) %>
               </div>
             </div>
           </div>
@@ -152,8 +140,8 @@
           <div class="row">
             <div class="col">
               <div class="heading mb-4">
-                <span class="caption">Tutorial Courses</span>
-                <h2>Choose Course</h2>
+                <span class="caption">Classes</span>
+                <h2>Choose Class</h2>
               </div>
             </div>  
           </div>
@@ -225,94 +213,30 @@
             <div class="col-12">
               <div class="heading mb-4">
                 <span class="caption">Latest</span>
-                <h2>Tutorials</h2>
+                <h2>Rooms</h2>
               </div>
             </div>
             <div class="col-lg-8">
-              
-
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="/static/images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Learning React Native</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-                  
-                  <p class="mb-0">
-                    <span class="brand-react h5"></span>
-                    <span class="brand-javascript h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="/static/images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Learning Angular 101</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-
-                  <p class="mb-0">
-                    <span class="brand-angular h5"></span>
-                    <span class="brand-javascript h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="/static/images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Learning Photoshop</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-                  <p class="mb-0">
-                    <span class="brand-adobephotoshop h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="/static/images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Advance Illustrator</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-                  <p class="mb-0">
-                    <span class="brand-adobeillustrator h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
+              <% Object.keys(rooms).forEach(room => { %>
+                <div class="d-flex tutorial-item mb-4">
+                    <div class="img-wrap">
+                      <a href="#"><img src="/static/images/img_4.jpg" alt="Image" class="img-fluid"></a>
+                    </div>
+                    <div>
+                      <h3><a href="#"><%= room %></a></h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
+                      <p class="mb-0">
+                        <span class="brand-adobeillustrator h5"></span>
+                      </p>
+                      <p class="meta">
+                        <span class="mr-2 mb-2">1hr 24m</span>
+                        <span class="mr-2 mb-2">Advanced</span>
+                        <span class="mr-2 mb-2">Jun 18, 2020</span>
+                      </p>
+                      <p><a href="/<%= room %>" class="btn btn-primary custom-btn">View</a></p>
+                    </div>
+                  </div>
+              <% }) %>
 
 
               <div class="custom-pagination">

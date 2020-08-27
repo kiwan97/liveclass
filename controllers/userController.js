@@ -1,8 +1,6 @@
 const {User} = require("../models/User");
 const passport = require("passport");
 
-const getJoin = (req,res) => res.render("join");
-exports.getJoin = getJoin;
 
 const postJoin = async (req,res,next) => {
     const{
@@ -27,22 +25,20 @@ const postJoin = async (req,res,next) => {
           console.log(error);
         }
     }
-    res.redirect('/rooms');
+    res.redirect('/');
 }
 exports.postJoin = postJoin;
 
-const getLogin = (req,res) => res.render("login");
-exports.getLogin = getLogin;
 
 const postLogin = passport.authenticate("local", {
-  failureRedirect: "/test/login",
-  successRedirect: "/test/rooms"
+  failureRedirect: "/login",
+  successRedirect: "/rooms"
 });
 exports.postLogin = postLogin;
 
 const getLogout = (req, res) => {
   req.logout();
-  res.redirect("/rooms");
+  res.redirect("/");
 };
 exports.getLogout = getLogout;
 
@@ -75,6 +71,6 @@ exports.googleLoginCallback = googleLoginCallback;
 const postGoogleLogin = (req, res) => {
   // Successful authentication, redirect home.
   console.log("Successful authentication, redirect home.");
-  res.redirect("/rooms");
+  res.redirect("/");
 };
 exports.postGoogleLogin = postGoogleLogin;

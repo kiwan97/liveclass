@@ -85,7 +85,7 @@ window.onload = function() {
         options: {
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart - Stacked'
+                text: '학생의 수업 참여 태도'
             },
             tooltips: {
                 mode: 'index',
