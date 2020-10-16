@@ -169,6 +169,7 @@ app.post('/api/addClassSched',(req,res)=>{
         body: {className2,title,writer,info,room,startTime,endTime}
     } = req;
     const newId = '_' + Math.random().toString(36).substr(2, 9);
+    console.log("className2 : ",className2);
     classlist[className2].dailysched.push({"schedId":newId,"className":className2,"title":title,"writer":writer, "info": info,"room":room,"startTime":startTime,"endTime":endTime});
     res.end();
 });
