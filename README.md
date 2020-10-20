@@ -9,3 +9,8 @@ AI를 통해 학생을 모니터링 합니다.<br>
     - Step2. npm install을 통해 필요한 package를 받습니다.
     - Step3. 해당 프로젝트 경로에서 "node index.js"를 통해 실행시켜줍니다.
     - Step4. localhost:3000에 접속 해줍니다.
+2. 사용된 기술
+    - AI : Cascading Classifiers(https://en.wikipedia.org/wiki/Cascading_classifiers)
+    - Socket : Socket.IO(https://socket.io/)
+    - DB : MongoDB(https://www.mongodb.com/)
+    - templates : BootStrap(https://getbootstrap.com/)
