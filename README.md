@@ -145,3 +145,36 @@ AI를 통해 학생을 모니터링 합니다.<br>
 
         </code>
         </pre>
+
+        차이점에 하는 부분은 다음과 같습니다.
+        <pre>
+        <code>
+            lines = sys.stdin.readline()
+            if lines is ttt:
+                continue
+            _string = json.loads(lines)
+            data = _string["arg"]
+            room = _string["room"]
+            email = _string["email"]
+
+            imgdata = base64.decodebytes(bytes(data[22:],'utf-8'))
+            filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames
+            with open(filename, 'wb') as f:
+                f.write(imgdata)
+                f.close()
+            sleep(0.5)
+            print("saved")
+        </code>
+        </pre>
+
+        기존 코드는 "cap = cv2.VideoCapture(0)"와 같이 바로 비디오사진을 받아온 반면<br>
+        제가 변경한 부분은 Server(NodeJs)에서 보낸 json형태의 정보에 대해 이미지로 변경 후 사용해야했습니다.<br>
+        json형태로 온 img는 [base64](https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%9D%B4%EC%8A%A464)형태로 전달되어 옵니다.<br>
+        이를 다시 imgdata로 만들기 위해 [base64.decodebytes(...)](https://docs.python.org/ko/3.7/library/base64.html)메소드를 사용했습니다.<br>
+        이렇게 imgdata에 저장된 이미지 데이터를 'some_image.jpg'로 저장하고 다시 해당 이미지를 가져와 기존코드와 동일한 프로세스를 사용합니다.<br>
+        번거롭게 imgdata를 다시 저장하고 불러오는 이유는 imgdata에 담겨있는 이미지 데이터를 기존코드에서 사용되게 하기위해서 마땅한 방법이 떠오르지 않아 그렇게 하였습니다...<br>
+
+        그외의 다른점은 얼굴 유무와 눈 감김 여부 연산 결과를 print(...)로 출력하고 sys.stdout.flush()를 통해 Server(NodeJS)에 넘겨주었다는 점입니다.<br>
+        이때 print(...)한 내용은 json과 함께 넘어온 client정보와 이미지 연산 결과(no face등등)을 함께 출력합니다.<br>
+
+    - Socket
