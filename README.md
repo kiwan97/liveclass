@@ -26,7 +26,8 @@ AI를 통해 학생을 모니터링 합니다.<br>
 3. 세부구현 설명
     - AI<br>
         # 기존코드
-        ```
+        <pre>
+        <code>
             import cv2
 eye_cascPath = 'D:/DeepLearning/face/opencv-face-recognition-python-master/opencv-files/haarcascade_eye_tree_eyeglasses.xml'  #eye detect model
 face_cascPath = 'D:/DeepLearning/face/opencv-face-recognition-python-master/opencv-files/haarcascade_frontalface_alt.xml'  #face detect model
@@ -70,4 +71,5 @@ while 1:
         if waitkey == ord('q') or waitkey == ord('Q'):
             cv2.destroyAllWindows()
             break
-        ```
+        </code>
+        </pre>
