@@ -24,7 +24,7 @@ AI를 통해 학생을 모니터링 합니다.<br>
     - templates : [BootStrap](https://getbootstrap.com/)<br>
         제가 직접 해당 기술을 사용한 것은 아니고 오픈되어 있는 [템블릿](https://colorlib.com/wp/template/courses/)을 가져와 사용했습니다.<br>
 3. 세부구현 설명
-    - AI<br>
+    - # AI<br>
         ## 기존코드
         [링크](https://github.com/GangYuanFan/Closed-Eye-Detection-with-opencv/blob/master/cv_close_eye_detect.py)
         <pre>
@@ -177,9 +177,9 @@ AI를 통해 학생을 모니터링 합니다.<br>
         그외의 다른점은 얼굴 유무와 눈 감김 여부 연산 결과를 print(...)로 출력하고 sys.stdout.flush()를 통해 Server(NodeJS)에 넘겨주었다는 점입니다.<br>
         이때 print(...)한 내용은 json과 함께 넘어온 client정보와 이미지 연산 결과(no face등등)을 함께 출력합니다.<br>
 
-    - Socket<br>
+    - # Socket
         [static/room.js](https://github.com/kiwan97/liveclass/blob/303e8fb75bca40638ebb78b88ce890bcddc4e02f/static/room.js)<br>
-        Client<br>
+        # Client
         ```
             const socket = io.connect('http://localhost:3000');
         ```
@@ -270,9 +270,7 @@ AI를 통해 학생을 모니터링 합니다.<br>
                 socket.emit('room-enter', {room:roomName, name: socket.id});
             };
         ```
-        
-        모든 client에게 일정시간 이상 방에 있지 않은 사람은 프레임을 없애기위해<br>
-        현재 내가 방에 들어가 있음을 3초 마다 {Room이름, 소켓ID}로 Server에 전달해줍니다.<br>
+        Server의 socket.io에 현재 room에 join 하기 위해 나의 소켓id와 roomName을 emit합니다.
 
         ```
             //audio
@@ -309,4 +307,55 @@ AI를 통해 학생을 모니터링 합니다.<br>
         각각의 client로 부터 전달된 blob형태의 음성이 Server를 거쳐 <br>
         같은 room에 속한 client들에게 전달됩니다.<br>
         전달된 음성들은 바로바로 재생이 됩니다.<br>
+
+        [index.js](https://github.com/kiwan97/liveclass/blob/a8feb22ad204a0b4d6f317543024b639cc2757b5/index.js)<br>
+        # Server 
+
+        ```
+        const server = app.listen(3000,()=>{console.log("local 3000 is listen");});
+        ```
+
+        포트3000에 서버를 열어줍니다.<br>
+
+        ```
+        const io = require('socket.io').listen(server);
+        ```
+
+        해당 서버에 socket.io서버를 열어줍니다.<br>
+
+        ```
+        io.on('connection', function(socket){
+            socket.on('image',function(data){
+                io.to(data.room).emit('image',data);
+                console.log("server : ",data.email);
+                
+                shell.send(JSON.stringify({arg: data.picture, room: data.room, email: data.email}));
+            });
+            socket.on('room-enter', (data) => {
+                socket.join(data.room);
+            });
+            socket.on('chat',(data) => {
+                io.to(data.room).emit('chat',data);
+            });
+            socket.on('radio', function(data) {
+                // can choose to broadcast it to whoever you want
+                console.log("Radio in ! ");
+                io.to(data.room).emit('voice', data.blob);
+            });
+        });
+        ```
+        client socket으로 부터 연결이 오면 io.on('connection',...)이 반응합니다.<br>
+        image인 경우<br>
+            sender의 room에 속한 사람들에게 image를 emit하고<br>
+            해당 이미지를 python-shell을 통해 python cv2에 넘겨줍니다.<br>
+        room-enter인 경우<br>
+            해당 socket을 roomName에 해당하는 room에 join합니다.<br>
+        chat인 경우<br>
+            해당 socket의 room에 속한 모든 socket에 emit합니다.<br>
+        radio인 경우<br>
+            해당 socket의 room에 속한 모든 socket에 blob을 emit합니다.<br>
+
+            
+
+
     
