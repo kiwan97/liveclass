@@ -178,3 +178,137 @@ AI를 통해 학생을 모니터링 합니다.<br>
         이때 print(...)한 내용은 json과 함께 넘어온 client정보와 이미지 연산 결과(no face등등)을 함께 출력합니다.<br>
 
     - Socket
+        [static/room.js](https://github.com/kiwan97/liveclass/blob/303e8fb75bca40638ebb78b88ce890bcddc4e02f/static/room.js)<br>
+        Client<br>
+        <pre>
+        <code>
+            const socket = io.connect('http://localhost:3000');
+        </code>
+        <pre>
+        localhost:3000에 있는 Server의 소켓과 연결합니다.<br>
+
+        ```
+            chatForm.addEventListener('submit', e=>{
+                e.preventDefault();
+
+                const msg = e.target.elements.chat.value;
+                e.target.elements.chat.value = "";
+                socket.emit('chat',{sender: cur_email, room:roomName, msg: msg});
+            });
+        ```
+
+        채팅창에 입력시, msg를 sender를 특정하는 이메일, 현재 방이름과 함께 서버에 emit 합니다.<br>
+
+        ```
+            btn1.addEventListener('click',function(){
+                const snapfun = async function(){
+                    var picture = await webcam.snap();
+                    socket.emit('image', {picture:picture, room:roomName, email: cur_email});
+                }   
+                setInterval(snapfun,500);
+                btn1.style="display: none;";
+            });
+        ```
+
+        강의실 페이지 상단 오른쪽에 위치한 broadcast버튼을 누르면 socket.emit을 통해 나의 카메라 이미지가 송출됩니다.<br>
+        나의 이미지, 현재 방 이름, 나의 이메일이 함께 Server로 emit 됩니다.<br>
+        snapfun 메소드는 비동기적으로 0.5초 마다 실행되어 이미지를 전송합니다.<br>
+
+        ```
+
+            socket.on('image',(data) => {
+                const newimg = document.getElementById('image#'+data.email);
+                if(newimg == null){
+                    console.log("no new img");
+                    addNewimg(data.email);
+                }else{
+                    newimg.src = data.picture;
+                    timelist[data.email] = new Date();
+                }
+            });
+
+        ```
+
+        다수의 Client로 부터 전달된 이미지가 Server에서 같은 Room에 속한 Client들에게 보내줍니다.<br>
+        따라서 각각의 Client들은 socket.on('image',...)를 통해 이미지를 받습니다.<br>
+        만약 sender의 프레임이 만들어지지 않았다면 addNewimg를 통해 만들어주고<br>
+        만들어졌다면 이미지를 업데이트합니다.<br>
+
+        ```
+            socket.on('face', (data)=>{
+                const stucontainer = document.getElementById('student#'+data.email);
+                if(stucontainer !=null){
+                    if(data.face == "no Face!!!"){
+                        stucontainer.style.backgroundColor = "#ff7675";
+                    }else if(data.face == "no eyes!!!"){
+                        stucontainer.style.backgroundColor = "#ffeaa7";
+                    }else if(data.face == "eyes!!!"){
+                        stucontainer.style.backgroundColor = "#55efc4";
+                    }
+                }
+            });
+        ```
+
+        각각의 학생 Client로 부터 온 이미지들은 또한 Server에서 python-shell 통해 얼굴 유무 및 눈 감김 여부 결과가 판단됩니다.<br>
+        해당 결과는 다시 같은 room에 있는 모든 Client들에게 전달되며 {email, 결과}형태로 전달됩니다.<br>
+        각각의 결과에 따라 빨강(얼굴X), 노랑(눈 감김), 초록(눈 열림)으로 각 학생 프레임의 색깔을 지정합니다.<br>
+
+        ```
+            socket.on('chat', (data)=>{
+                const tmp = document.createElement('div');
+                tmp.classList.add("chat-span")
+                tmp.innerText = data.sender + " : " + data.msg + '\n';
+                chat_board.appendChild(tmp);
+                chat_board.scrollTop = chat_board.scrollHeight;
+            });
+        ```
+
+        각각의 client를 통해 전달된 채팅창에 입력한 데이터가 Server를 거쳐<br>
+        같은 Room에 있는 모든 학생들에게 전달됩니다.<br>
+
+        ```    
+            const init = function(){
+                setInterval(checkTimeOut,3000);
+                socket.emit('room-enter', {room:roomName, name: socket.id});
+            };
+        ```
+        
+        모든 client에게 일정시간 이상 방에 있지 않은 사람은 프레임을 없애기위해<br>
+        현재 내가 방에 들어가 있음을 3초 마다 {Room이름, 소켓ID}로 Server에 전달해줍니다.<br>
+
+        ```
+            //audio
+            var constraints = { audio: true };
+            
+            navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+                mediaRecorder = new MediaRecorder(mediaStream);
+                mediaRecorder.onstart = function(e) {
+                    this.chunks = [];
+                };
+                mediaRecorder.ondataavailable = function(e) {
+                    this.chunks.push(e.data);
+                };
+                mediaRecorder.onstop = function(e) {
+                    var blob = new Blob(this.chunks, { 'type' : 'audio/ogg; codecs=opus' });
+                    socket.emit('radio',{room:roomName, blob: blob});
+                };
+            });
+        
+        ```
+        현재 나의 음성을 blob형태로 반복적으로 Server에 보내줍니다.<br>
+
+        ```
+
+            // When the client receives a voice message it will play the sound
+            socket.on('voice', function(arrayBuffer) {
+                var blob = new Blob([arrayBuffer], { 'type' : 'audio/ogg; codecs=opus' });
+                var audio = document.createElement('audio');
+                audio.src = window.URL.createObjectURL(blob);
+                audio.play();
+            });
+
+        ```    
+        각각의 client로 부터 전달된 blob형태의 음성이 Server를 거쳐 <br>
+        같은 room에 속한 client들에게 전달됩니다.<br>
+        전달된 음성들은 바로바로 재생이 됩니다.<br>
+    
