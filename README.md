@@ -354,6 +354,103 @@ AI를 통해 학생을 모니터링 합니다.<br>
             해당 socket의 room에 속한 모든 socket에 emit합니다.<br>
         radio인 경우<br>
             해당 socket의 room에 속한 모든 socket에 blob을 emit합니다.<br>
+        
+        ```
+        let shell = new PythonShell('facedetect-py/cv_close_eye_detect2.py');
+        shell.on('message', function (message) {
+            // received a message sent from the Python script (a simple "print" statement)
+            console.log(message);
+            var res = message.split('@');
+            io.to(res[1]).emit('face',{face:res[0], email:res[2]});
+
+            if(userFaceData[res[2]]==null){
+                userFaceData[res[2]] = {noFace:[],noEyes:[],yesEyes:[]};
+            }
+            var curDate = new Date();
+            var curTime = curDate.getFullYear() + "/"
+                + (curDate.getMonth()+1) + "/"
+                + curDate.getDate() + "/"
+                + curDate.getHours() + "/"
+                + curDate.getMinutes();
+            if(res[0]=="no Face!!!")
+                userFaceData[res[2]].noFace.push(curTime);
+            else if(res[0]=="no eyes!!!")
+                userFaceData[res[2]].noEyes.push(curTime);
+            else if(res[0]=="eyes!!!")
+                userFaceData[res[2]].yesEyes.push(curTime);
+        });
+        ```
+        python 스크립트에서 온 결과를 email정보와 함께 room에 보냅니다.<br>
+    
+    - # DB
+        [db.js](https://github.com/kiwan97/liveclass/blob/master/db.js)<br>
+
+        ```
+        const mongoose = require('mongoose');
+        const dotenv = require("dotenv");
+
+        dotenv.config();
+        mongoose.connect(
+            // "mongodb://localhost:27017/mamemo",
+            process.env.MONGODB_AWS_LINK,
+            {
+            useNewUrlParser: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true
+            }
+        );
+        
+        const db = mongoose.connection;
+        
+        const handleOpen = () => console.log("✅  Connected to DB");
+        const handleError = error => console.log(`❌ Error on DB Connection:${error}`);
+        
+        db.once("open", handleOpen);
+        db.on("error", handleError);
+        ```
+        [mongoose](https://mongoosejs.com/)를 통해 mongo DB에 접속합니다.<br>
+
+        [index.js](https://github.com/kiwan97/liveclass/blob/a8feb22ad204a0b4d6f317543024b639cc2757b5/index.js)<br>
+
+        ```
+        require('./db');
+        ```
+        위의 db변수를 사용하기 위해 가져옵니다.<br>
+
+        ```
+        const mongoose = require('mongoose');
+        const MongoStore = require('connect-mongo');
+        ...
+        const session = require("express-session");
+        ...
+        const CookieStore = MongoStore(session);
+        ```
+        MongoStore는 session정보를 DB에 저장하기 위해 사용합니다.<br>
+        
+        ```
+        if(!req.user){
+        if(!req.session.user)
+            req.session.user = {email:"Guest"+GuestCnt, name: "Guest"+GuestCnt++};
+        req.user = req.session.user;
+        }
+        ```
+        middlewares에서 세션이 있다면 매번 해당 세션의 user정보를 가져온다.<br>
+
+        ```
+        app.use(
+            session({
+                secret: process.env.COOKIE_SECRET,
+                resave: true,
+                saveUninitialized: false,
+                store: new CookieStore({mongooseConnection: mongoose.connection})
+            })
+        );
+        ```
+        명칭상 Cookie부분은 Session으로 바꾸어주어야 옳습니다.<br>
+        store: 부분에서 mongoDB에 저장함을 보여줍니다.<br>
+
+
+
 
             
 
