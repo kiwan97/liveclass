@@ -177,14 +177,12 @@ AI를 통해 학생을 모니터링 합니다.<br>
         그외의 다른점은 얼굴 유무와 눈 감김 여부 연산 결과를 print(...)로 출력하고 sys.stdout.flush()를 통해 Server(NodeJS)에 넘겨주었다는 점입니다.<br>
         이때 print(...)한 내용은 json과 함께 넘어온 client정보와 이미지 연산 결과(no face등등)을 함께 출력합니다.<br>
 
-    - Socket
+    - Socket<br>
         [static/room.js](https://github.com/kiwan97/liveclass/blob/303e8fb75bca40638ebb78b88ce890bcddc4e02f/static/room.js)<br>
         Client<br>
-        <pre>
-        <code>
+        ```
             const socket = io.connect('http://localhost:3000');
-        </code>
-        <pre>
+        ```
         localhost:3000에 있는 Server의 소켓과 연결합니다.<br>
 
         ```
